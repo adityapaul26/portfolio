@@ -10,6 +10,7 @@ import {
   RenderTarget,
   Color,
 } from "ogl";
+import AsciiArtDemo from "@/components/ascii-art-demo";
 
 // ----------------------------------------------------------------------
 // COMPONENT: INTERSTELLAR FLUID (Simulation Logic)
@@ -377,39 +378,48 @@ export default function InterstellarFluidHero() {
         </header>
 
         {/* Center Hero */}
-        <div className="flex flex-col items-start max-w-4xl">
-          <div className="overflow-hidden mb-6">
-            <div className="inline-flex items-center gap-3 px-3 py-1 border border-purple-500/30 bg-purple-900/10 backdrop-blur-md rounded-none">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-purple-500"></span>
+        <div className="flex flex-col md:flex-row items-center justify-between w-full max-w-7xl gap-12 flex-1">
+          <div className="flex flex-col items-start max-w-2xl">
+            <div className="overflow-hidden mb-6">
+              <div className="inline-flex items-center gap-3 px-3 py-1 border border-purple-500/30 bg-purple-900/10 backdrop-blur-md rounded-none">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-purple-500"></span>
+                </span>
+                <span className="text-[10px] font-mono uppercase tracking-widest text-purple-200">
+                  Status: Available for Work
+                </span>
+              </div>
+            </div>
+
+            <h1 className="text-6xl md:text-9xl font-black tracking-tighter leading-[0.9] mix-blend-overlay font-mono uppercase italic">
+              ADITYA
+              <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-200 to-transparent">
+                PAUL
               </span>
-              <span className="text-[10px] font-mono uppercase tracking-widest text-purple-200">
-                Status: Available for Work
-              </span>
+            </h1>
+
+            <div className="h-px w-32 bg-white/30 mt-4 mb-8"></div>
+
+            <p className="max-w-md text-sm md:text-lg text-gray-400 leading-relaxed font-light">
+              Full-stack engineer specializing in building high-performance
+              digital experiences. Crafting the future of the web with code and
+              creativity.
+            </p>
+
+            <div className="mt-12 pointer-events-auto flex gap-6">
+              <button className="bg-white text-black px-8 py-4 font-bold text-xs uppercase tracking-widest hover:bg-purple-300 transition-colors">
+                View Projects
+              </button>
+              <button className="text-white border-b border-white/30 pb-1 text-xs uppercase tracking-widest hover:border-white transition-colors">
+                Get in Touch
+              </button>
             </div>
           </div>
 
-          <h1 className="text-6xl md:text-9xl font-black tracking-tighter leading-[0.9] mix-blend-overlay font-mono uppercase italic">
-            ADITYA<br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-200 to-transparent">PAUL</span>
-          </h1>
-
-          <div className="h-px w-32 bg-white/30 mt-4 mb-8"></div>
-
-          <p className="max-w-md text-sm md:text-lg text-gray-400 leading-relaxed font-light">
-            Full-stack engineer specializing in building high-performance
-            digital experiences. Crafting the future of the web with code and
-            creativity.
-          </p>
-
-          <div className="mt-12 pointer-events-auto flex gap-6">
-            <button className="bg-white text-black px-8 py-4 font-bold text-xs uppercase tracking-widest hover:bg-purple-300 transition-colors">
-              View Projects
-            </button>
-            <button className="text-white border-b border-white/30 pb-1 text-xs uppercase tracking-widest hover:border-white transition-colors">
-              Get in Touch
-            </button>
+          <div className="flex-1 w-full max-w-lg pointer-events-auto">
+            <AsciiArtDemo />
           </div>
         </div>
 
