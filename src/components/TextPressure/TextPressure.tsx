@@ -161,8 +161,8 @@ const TextPressure: React.FC<TextPressureProps> = ({
           if (span.style.fontVariationSettings !== newFontVariationSettings) {
             span.style.fontVariationSettings = newFontVariationSettings;
           }
-          if (alpha && span.style.opacity !== alphaVal) {
-            span.style.opacity = alphaVal;
+          if (alpha && span.style.opacity !== `${alphaVal}`) {
+            span.style.opacity = `${alphaVal}`;
           }
         });
       }
@@ -220,8 +220,15 @@ const TextPressure: React.FC<TextPressureProps> = ({
         }}
       >
         {chars.map((char, i) => (
-          <span key={i} ref={el => (spansRef.current[i] = el)} data-char={char} className="inline-block">
-            {char === ' ' ? '\u00A0' : char}
+          <span
+            key={i}
+            ref={(el) => {
+              spansRef.current[i] = el;
+            }}
+            data-char={char}
+            className="inline-block"
+          >
+            {char === " " ? "\u00A0" : char}
           </span>
         ))}
       </h1>

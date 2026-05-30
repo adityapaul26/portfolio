@@ -215,10 +215,10 @@ const InterstellarFluid: React.FC<InterstellarProps> = ({
     // FBOs (Double Buffering)
     // We use half-float textures for HDR color support
     const fboArgs = {
-      width: window.innerWidth >> 1, // Half res for performance + soft look
+      width: window.innerWidth >> 1,
       height: window.innerHeight >> 1,
-      type: gl.HALF_FLOAT || gl.FLOAT,
-      internalFormat: gl.RGBA16F || gl.RGBA,
+      type: (gl as any).HALF_FLOAT || (gl as any).FLOAT || 36193,
+      internalFormat: (gl as any).RGBA16F || gl.RGBA,
       minFilter: gl.LINEAR,
       magFilter: gl.LINEAR,
     };
