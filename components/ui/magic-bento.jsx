@@ -2,18 +2,40 @@
 
 import { useRef, useEffect, useState, useCallback } from 'react';
 import { gsap } from 'gsap';
+import createGlobe from 'cobe';
+import { useMotionValue, useSpring } from 'motion/react';
 
 const DEFAULT_PARTICLE_COUNT = 12;
 const DEFAULT_SPOTLIGHT_RADIUS = 300;
 const DEFAULT_GLOW_COLOR = '132, 0, 255';
 const MOBILE_BREAKPOINT = 768;
+const MOVEMENT_DAMPING = 1400;
+
+const GLOBE_CONFIG = {
+  width: 800,
+  height: 800,
+  devicePixelRatio: 2,
+  phi: 0,
+  theta: 0.3,
+  dark: 0,
+  diffuse: 0.4,
+  mapSamples: 16000,
+  mapBrightness: 1.2,
+  baseColor: [1, 1, 1],
+  markerColor: [251 / 255, 100 / 255, 21 / 255],
+  glowColor: [1, 1, 1],
+  markers: [
+    { location: [22.5726, 88.3639], size: 0.035 }
+  ]
+};
 
 const cardData = [
   {
     color: '#120F17',
     title: 'Kolkata, India',
     description: 'Software Engineer based in West Bengal.',
-    label: 'Location'
+    label: 'Location',
+    globe: true
   },
   {
     color: '#120F17',
@@ -80,6 +102,91 @@ const updateCardGlowProperties = (card, mouseX, mouseY, glow, radius) => {
   card.style.setProperty('--glow-intensity', glow.toString());
   card.style.setProperty('--glow-radius', `${radius}px`);
 };
+
+export function Globe({ className = '', style, config = GLOBE_CONFIG }) {
+  const canvasRef = useRef(null);
+  const phiRef = useRef(0);
+  const widthRef = useRef(0);
+  const pointerInteracting = useRef(null);
+
+  const r = useMotionValue(0);
+  const rs = useSpring(r, {
+    mass: 1,
+    damping: 30,
+    stiffness: 100
+  });
+
+  const updatePointerInteraction = value => {
+    pointerInteracting.current = value;
+    if (canvasRef.current) {
+      canvasRef.current.style.cursor = value !== null ? 'grabbing' : 'grab';
+    }
+  };
+
+  const updateMovement = clientX => {
+    if (pointerInteracting.current !== null) {
+      const delta = clientX - pointerInteracting.current;
+      r.set(r.get() + delta / MOVEMENT_DAMPING);
+    }
+  };
+
+  useEffect(() => {
+    if (!canvasRef.current) return;
+
+    const onResize = () => {
+      if (canvasRef.current) {
+        widthRef.current = canvasRef.current.offsetWidth;
+      }
+    };
+
+    window.addEventListener('resize', onResize);
+    onResize();
+
+    const globe = createGlobe(canvasRef.current, {
+      ...config,
+      width: widthRef.current * 2,
+      height: widthRef.current * 2
+    });
+
+    let animationFrameId;
+    const render = () => {
+      if (pointerInteracting.current === null) phiRef.current += 0.005;
+
+      globe.update({
+        phi: phiRef.current + rs.get(),
+        width: widthRef.current * 2,
+        height: widthRef.current * 2
+      });
+
+      animationFrameId = requestAnimationFrame(render);
+    };
+
+    animationFrameId = requestAnimationFrame(render);
+    setTimeout(() => {
+      if (canvasRef.current) canvasRef.current.style.opacity = '1';
+    }, 0);
+
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+      globe.destroy();
+      window.removeEventListener('resize', onResize);
+    };
+  }, [rs, config]);
+
+  return (
+    <div className={`absolute inset-0 mx-auto aspect-square w-full max-w-[37.5rem] ${className}`} style={style}>
+      <canvas
+        className="size-full opacity-0 transition-opacity duration-500 contain-[layout_paint_size]"
+        ref={canvasRef}
+        onPointerDown={e => updatePointerInteraction(e.clientX)}
+        onPointerUp={() => updatePointerInteraction(null)}
+        onPointerOut={() => updatePointerInteraction(null)}
+        onMouseMove={e => updateMovement(e.clientX)}
+        onTouchMove={e => e.touches[0] && updateMovement(e.touches[0].clientX)}
+      />
+    </div>
+  );
+}
 
 const ParticleCard = ({
   children,
@@ -662,10 +769,16 @@ const MagicBento = ({
                   clickEffect={clickEffect}
                   enableMagnetism={enableMagnetism}
                 >
-                  <div className="card__header flex justify-between gap-3 relative text-white">
+                  {card.globe && (
+                    <Globe
+                      className="z-0 opacity-80"
+                      style={{ inset: 'auto -50% -50% auto', width: '120%', maxWidth: 'none' }}
+                    />
+                  )}
+                  <div className="card__header flex justify-between gap-3 relative z-10 text-white">
                     <span className="card__label text-base">{card.label}</span>
                   </div>
-                  <div className="card__content flex flex-col relative text-white">
+                  <div className="card__content flex flex-col relative z-10 text-white">
                     <h3 className={`card__title font-normal text-base m-0 mb-1 ${textAutoHide ? 'text-clamp-1' : ''}`}>
                       {card.title}
                     </h3>
@@ -794,10 +907,16 @@ const MagicBento = ({
                   el.addEventListener('click', handleClick);
                 }}
               >
-                <div className="card__header flex justify-between gap-3 relative text-white">
+                {card.globe && (
+                  <Globe
+                    className="z-0 opacity-80"
+                    style={{ inset: 'auto -50% -50% auto', width: '120%', maxWidth: 'none' }}
+                  />
+                )}
+                <div className="card__header flex justify-between gap-3 relative z-10 text-white">
                   <span className="card__label text-base">{card.label}</span>
                 </div>
-                <div className="card__content flex flex-col relative text-white">
+                <div className="card__content flex flex-col relative z-10 text-white">
                   <h3 className={`card__title font-normal text-base m-0 mb-1 ${textAutoHide ? 'text-clamp-1' : ''}`}>
                     {card.title}
                   </h3>
