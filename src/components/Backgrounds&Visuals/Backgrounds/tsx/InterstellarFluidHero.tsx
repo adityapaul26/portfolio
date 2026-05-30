@@ -168,7 +168,7 @@ const InterstellarFluid: React.FC<InterstellarProps> = ({
                 vec3 c = color.rgb;
                 
                 // Add the base tint (Ambient starlight)
-                c += uBaseColor * 0.2;
+                c += uBaseColor * 0.1;
                 
                 // Gamma correction for contrast
                 c = pow(c, vec3(1.4)); 
@@ -430,7 +430,7 @@ export default function InterstellarFluidHero() {
             <span>LON: 77.2090° E</span>
           </div>
           <div className="flex flex-col items-end gap-1">
-            <span>// SCROLL_TO_EXPLORE</span>
+            <span>{"// SCROLL_TO_EXPLORE"}</span>
             <span>© 2026 ADITYA PAUL.ALL_RIGHTS_RESERVED</span>
           </div>
         </div>
