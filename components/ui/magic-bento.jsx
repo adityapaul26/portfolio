@@ -76,9 +76,9 @@ const cardData = [
   },
   {
     color: '#120F17',
-    title: 'Full-stack',
-    description: 'Building high-performance digital experiences.',
-    label: 'Role'
+    title: "Hi, I'm adityapaul26",
+    description: 'I am currently a 3rd year student at Techno Main Salt Lake, pursuing BTech in Information Technology.',
+    label: 'About Myself'
   },
   {
     color: '#120F17',
