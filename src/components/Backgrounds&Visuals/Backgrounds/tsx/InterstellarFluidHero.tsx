@@ -1,49 +1,57 @@
-'use client';
+"use client";
 
-import React, { useRef, useEffect } from 'react';
-import { Renderer, Program, Mesh, Triangle, Vec2, RenderTarget, Color } from 'ogl';
+import React, { useRef, useEffect } from "react";
+import {
+  Renderer,
+  Program,
+  Mesh,
+  Triangle,
+  Vec2,
+  RenderTarget,
+  Color,
+} from "ogl";
 
 // ----------------------------------------------------------------------
 // COMPONENT: INTERSTELLAR FLUID (Simulation Logic)
 // ----------------------------------------------------------------------
 
 interface InterstellarProps extends React.HTMLAttributes<HTMLDivElement> {
-    baseColor?: [number, number, number]; // RGB array 0-1
-    glowColor?: [number, number, number]; // RGB array 0-1
-    dissipation?: number; // How fast the gas fades (0.95 - 0.99)
-    velocityDissipation?: number; // How fast movement stops
-    interactive?: boolean;
+  baseColor?: [number, number, number]; // RGB array 0-1
+  glowColor?: [number, number, number]; // RGB array 0-1
+  dissipation?: number; // How fast the gas fades (0.95 - 0.99)
+  velocityDissipation?: number; // How fast movement stops
+  interactive?: boolean;
 }
 
 const InterstellarFluid: React.FC<InterstellarProps> = ({
-    baseColor = [0.05, 0.05, 0.2], // Deep Space Blue
-    glowColor = [0.8, 0.4, 1.0],   // Nebula Violet
-    dissipation = 0.97,
-    velocityDissipation = 0.98,
-    interactive = true,
-    ...props
+  baseColor = [0.05, 0.05, 0.2], // Deep Space Blue
+  glowColor = [0.8, 0.4, 1.0], // Nebula Violet
+  dissipation = 0.97,
+  velocityDissipation = 0.98,
+  interactive = true,
+  ...props
 }) => {
-    const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
-    useEffect(() => {
-        if (!containerRef.current) return;
-        const container = containerRef.current;
+  useEffect(() => {
+    if (!containerRef.current) return;
+    const container = containerRef.current;
 
-        // 1. Setup Renderer
-        const renderer = new Renderer({
-            alpha: false, // Opaque for space background
-            dpr: Math.min(window.devicePixelRatio, 2)
-        });
-        const gl = renderer.gl;
+    // 1. Setup Renderer
+    const renderer = new Renderer({
+      alpha: false, // Opaque for space background
+      dpr: Math.min(window.devicePixelRatio, 2),
+    });
+    const gl = renderer.gl;
 
-        // Enable Floating Point Textures (Critical for HDR colors)
-        const ext = gl.getExtension('OES_texture_float');
-        const extLinear = gl.getExtension('OES_texture_float_linear');
+    // Enable Floating Point Textures (Critical for HDR colors)
+    const ext = gl.getExtension("OES_texture_float");
+    const extLinear = gl.getExtension("OES_texture_float_linear");
 
-        // --------------------------------------------------------
-        // SHADER: SIMULATION (Physics)
-        // --------------------------------------------------------
-        const simFragment = /* glsl */ `
+    // --------------------------------------------------------
+    // SHADER: SIMULATION (Physics)
+    // --------------------------------------------------------
+    const simFragment = /* glsl */ `
             precision highp float;
             
             uniform sampler2D uTexture; // Previous frame
@@ -142,10 +150,10 @@ const InterstellarFluid: React.FC<InterstellarProps> = ({
             }
         `;
 
-        // --------------------------------------------------------
-        // SHADER: DISPLAY (Color Grading)
-        // --------------------------------------------------------
-        const displayFragment = /* glsl */ `
+    // --------------------------------------------------------
+    // SHADER: DISPLAY (Color Grading)
+    // --------------------------------------------------------
+    const displayFragment = /* glsl */ `
             precision highp float;
             uniform sampler2D uTexture;
             varying vec2 vUv;
@@ -172,227 +180,251 @@ const InterstellarFluid: React.FC<InterstellarProps> = ({
             }
         `;
 
-        const geometry = new Triangle(gl);
+    const geometry = new Triangle(gl);
 
-        // Programs
-        const simProgram = new Program(gl, {
-            vertex: `attribute vec2 uv; attribute vec2 position; varying vec2 vUv; void main() { vUv = uv; gl_Position = vec4(position, 0, 1); }`,
-            fragment: simFragment,
-            uniforms: {
-                uTexture: { value: null },
-                uTime: { value: 0 },
-                uMouse: { value: new Vec2(0, 0) },
-                uMouseActive: { value: 0 },
-                uResolution: { value: new Vec2(0, 0) },
-                uAspect: { value: 1 },
-                uDissipation: { value: dissipation },
-                uBaseColor: { value: new Color(baseColor) },
-                uGlowColor: { value: new Color(glowColor) },
-            },
-        });
+    // Programs
+    const simProgram = new Program(gl, {
+      vertex: `attribute vec2 uv; attribute vec2 position; varying vec2 vUv; void main() { vUv = uv; gl_Position = vec4(position, 0, 1); }`,
+      fragment: simFragment,
+      uniforms: {
+        uTexture: { value: null },
+        uTime: { value: 0 },
+        uMouse: { value: new Vec2(0, 0) },
+        uMouseActive: { value: 0 },
+        uResolution: { value: new Vec2(0, 0) },
+        uAspect: { value: 1 },
+        uDissipation: { value: dissipation },
+        uBaseColor: { value: new Color(baseColor) },
+        uGlowColor: { value: new Color(glowColor) },
+      },
+    });
 
-        const displayProgram = new Program(gl, {
-            vertex: `attribute vec2 uv; attribute vec2 position; varying vec2 vUv; void main() { vUv = uv; gl_Position = vec4(position, 0, 1); }`,
-            fragment: displayFragment,
-            uniforms: {
-                uTexture: { value: null },
-                uBaseColor: { value: new Color(baseColor) },
-            },
-        });
+    const displayProgram = new Program(gl, {
+      vertex: `attribute vec2 uv; attribute vec2 position; varying vec2 vUv; void main() { vUv = uv; gl_Position = vec4(position, 0, 1); }`,
+      fragment: displayFragment,
+      uniforms: {
+        uTexture: { value: null },
+        uBaseColor: { value: new Color(baseColor) },
+      },
+    });
 
-        const simMesh = new Mesh(gl, { geometry, program: simProgram });
-        const displayMesh = new Mesh(gl, { geometry, program: displayProgram });
+    const simMesh = new Mesh(gl, { geometry, program: simProgram });
+    const displayMesh = new Mesh(gl, { geometry, program: displayProgram });
 
-        // FBOs (Double Buffering)
-        // We use half-float textures for HDR color support
-        const fboArgs = {
-            width: window.innerWidth >> 1, // Half res for performance + soft look
-            height: window.innerHeight >> 1,
-            type: gl.HALF_FLOAT || gl.FLOAT,
-            internalFormat: gl.RGBA16F || gl.RGBA,
-            minFilter: gl.LINEAR,
-            magFilter: gl.LINEAR,
-        };
-        let fboRead = new RenderTarget(gl, fboArgs);
-        let fboWrite = new RenderTarget(gl, fboArgs);
+    // FBOs (Double Buffering)
+    // We use half-float textures for HDR color support
+    const fboArgs = {
+      width: window.innerWidth >> 1, // Half res for performance + soft look
+      height: window.innerHeight >> 1,
+      type: gl.HALF_FLOAT || gl.FLOAT,
+      internalFormat: gl.RGBA16F || gl.RGBA,
+      minFilter: gl.LINEAR,
+      magFilter: gl.LINEAR,
+    };
+    let fboRead = new RenderTarget(gl, fboArgs);
+    let fboWrite = new RenderTarget(gl, fboArgs);
 
-        // Input Handling
-        const mouse = new Vec2(0, 0);
-        const targetMouse = new Vec2(0, 0);
-        let isMoving = 0;
+    // Input Handling
+    const mouse = new Vec2(0, 0);
+    const targetMouse = new Vec2(0, 0);
+    let isMoving = 0;
 
-        function resize() {
-            const w = container.offsetWidth;
-            const h = container.offsetHeight;
-            renderer.setSize(w, h);
+    function resize() {
+      const w = container.offsetWidth;
+      const h = container.offsetHeight;
+      renderer.setSize(w, h);
 
-            // Resize FBOs
-            const fboW = w >> 1;
-            const fboH = h >> 1;
-            fboRead.setSize(fboW, fboH);
-            fboWrite.setSize(fboW, fboH);
+      // Resize FBOs
+      const fboW = w >> 1;
+      const fboH = h >> 1;
+      fboRead.setSize(fboW, fboH);
+      fboWrite.setSize(fboW, fboH);
 
-            simProgram.uniforms.uResolution.value.set(w, h);
-            simProgram.uniforms.uAspect.value = w / h;
-        }
-        window.addEventListener('resize', resize);
-        resize();
+      simProgram.uniforms.uResolution.value.set(w, h);
+      simProgram.uniforms.uAspect.value = w / h;
+    }
+    window.addEventListener("resize", resize);
+    resize();
 
-        function updateMouse(x: number, y: number) {
-            targetMouse.set(x / gl.canvas.width, 1.0 - y / gl.canvas.height);
-            isMoving = 1.0;
-        }
+    function updateMouse(x: number, y: number) {
+      targetMouse.set(x / gl.canvas.width, 1.0 - y / gl.canvas.height);
+      isMoving = 1.0;
+    }
 
-        if (interactive) {
-            window.addEventListener('mousemove', e => updateMouse(e.clientX, e.clientY));
-            window.addEventListener('touchmove', e => updateMouse(e.touches[0].clientX, e.touches[0].clientY));
-        }
+    if (interactive) {
+      window.addEventListener("mousemove", (e) =>
+        updateMouse(e.clientX, e.clientY),
+      );
+      window.addEventListener("touchmove", (e) =>
+        updateMouse(e.touches[0].clientX, e.touches[0].clientY),
+      );
+    }
 
-        let animationId: number;
-        let stopTimer: NodeJS.Timeout;
+    let animationId: number;
+    let stopTimer: NodeJS.Timeout;
 
-        function update(t: number) {
-            animationId = requestAnimationFrame(update);
-            const time = t * 0.001;
+    function update(t: number) {
+      animationId = requestAnimationFrame(update);
+      const time = t * 0.001;
 
-            // Smooth Mouse
-            mouse.lerp(targetMouse, 0.15);
+      // Smooth Mouse
+      mouse.lerp(targetMouse, 0.15);
 
-            // Mouse "Stop" logic (decay activity when stopped)
-            if (Math.abs(mouse.x - targetMouse.x) < 0.001) {
-                isMoving *= 0.9; // Fast decay
-            }
+      // Mouse "Stop" logic (decay activity when stopped)
+      if (Math.abs(mouse.x - targetMouse.x) < 0.001) {
+        isMoving *= 0.9; // Fast decay
+      }
 
-            // Update Uniforms
-            simProgram.uniforms.uTime.value = time;
-            simProgram.uniforms.uMouse.value.copy(mouse);
-            simProgram.uniforms.uMouseActive.value = isMoving;
-            simProgram.uniforms.uTexture.value = fboRead.texture;
+      // Update Uniforms
+      simProgram.uniforms.uTime.value = time;
+      simProgram.uniforms.uMouse.value.copy(mouse);
+      simProgram.uniforms.uMouseActive.value = isMoving;
+      simProgram.uniforms.uTexture.value = fboRead.texture;
 
-            // Prop Updates
-            simProgram.uniforms.uDissipation.value = dissipation;
+      // Prop Updates
+      simProgram.uniforms.uDissipation.value = dissipation;
 
-            // Ping-Pong Rendering
-            renderer.render({ scene: simMesh, target: fboWrite });
-            displayProgram.uniforms.uTexture.value = fboWrite.texture;
-            renderer.render({ scene: displayMesh });
+      // Ping-Pong Rendering
+      renderer.render({ scene: simMesh, target: fboWrite });
+      displayProgram.uniforms.uTexture.value = fboWrite.texture;
+      renderer.render({ scene: displayMesh });
 
-            // Swap
-            const temp = fboRead;
-            fboRead = fboWrite;
-            fboWrite = temp;
-        }
-        animationId = requestAnimationFrame(update);
-        container.appendChild(gl.canvas);
+      // Swap
+      const temp = fboRead;
+      fboRead = fboWrite;
+      fboWrite = temp;
+    }
+    animationId = requestAnimationFrame(update);
+    container.appendChild(gl.canvas);
 
-        return () => {
-            cancelAnimationFrame(animationId);
-            window.removeEventListener('resize', resize);
-            gl.getExtension('WEBGL_lose_context')?.loseContext();
-        };
-    }, [baseColor, glowColor, dissipation, interactive]);
+    return () => {
+      cancelAnimationFrame(animationId);
+      window.removeEventListener("resize", resize);
+      gl.getExtension("WEBGL_lose_context")?.loseContext();
+    };
+  }, [baseColor, glowColor, dissipation, interactive]);
 
-    return <div ref={containerRef} className="w-full h-full" {...props} />;
+  return <div ref={containerRef} className="w-full h-full" {...props} />;
 };
 
-
 // ----------------------------------------------------------------------
-// PAGE: MODERN INTERSTELLAR HERO
+// PAGE: MODERN INTERSTELLAR HERO (Personalized for Aditya)
 // ----------------------------------------------------------------------
 
 export default function InterstellarFluidHero() {
-    return (
-        <main className="relative w-full h-screen overflow-hidden bg-black font-sans selection:bg-purple-500 selection:text-white">
+  const navLinks = [
+    { name: "About", href: "#about" },
+    { name: "Projects", href: "#projects" },
+    { name: "Experience", href: "#experience" },
+    { name: "Contact", href: "#contact" },
+  ];
 
-            {/* 
+  return (
+    <main className="relative w-full h-screen overflow-hidden bg-black font-sans selection:bg-purple-500 selection:text-white">
+      {/* 
                LAYER 0: SIMULATION 
                Using the reusable component with Space Colors
             */}
-            <div className="absolute inset-0 z-0">
-                <InterstellarFluid
-                    baseColor={[0.0, 0.0, 0.05]} // Void Black/Blue
-                    glowColor={[0.6, 0.2, 1.0]}  // Singularity Violet
-                    dissipation={0.985}          // Long lingering tails
-                    interactive={true}
-                />
-            </div>
+      <div className="absolute inset-0 z-0">
+        <InterstellarFluid
+          baseColor={[0.0, 0.0, 0.05]} // Void Black/Blue
+          glowColor={[0.6, 0.2, 1.0]} // Singularity Violet
+          dissipation={0.985} // Long lingering tails
+          interactive={true}
+        />
+      </div>
 
-            {/* 
+      {/* 
                LAYER 1: TEXTURE OVERLAY
                Adds a subtle grid or scanline to make it feel technical
             */}
-            <div
-                className="absolute inset-0 z-10 pointer-events-none opacity-20 bg-[size:50px_50px] bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)]"
-            />
+      <div className="absolute inset-0 z-10 pointer-events-none opacity-20 bg-[size:50px_50px] bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)]" />
 
-            {/* Vignette */}
-            <div className="absolute inset-0 z-10 pointer-events-none bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.6)_100%)]" />
+      {/* Vignette */}
+      <div className="absolute inset-0 z-10 pointer-events-none bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.6)_100%)]" />
 
-            {/* 
+      {/* 
                LAYER 2: UI CONTENT 
                Modern, sharp, high-contrast
             */}
-            <div className="relative z-20 flex flex-col justify-between w-full h-full p-8 md:p-16 text-white pointer-events-none">
+      <div className="relative z-20 flex flex-col justify-between w-full h-full p-8 md:p-16 text-white pointer-events-none">
+        {/* Navbar */}
+        <header className="flex justify-between items-center pointer-events-auto">
+          <div className="flex flex-col">
+            <span className="text-xs font-bold tracking-[0.2em] text-purple-300 mb-1">
+              PORTFOLIO_V1.0
+            </span>
+            <h2 className="text-2xl font-black tracking-tighter uppercase">
+              ADITYA
+            </h2>
+          </div>
 
-                {/* Header */}
-                <header className="flex justify-between items-start pointer-events-auto">
-                    <div className="flex flex-col">
-                        <span className="text-xs font-bold tracking-[0.2em] text-purple-300 mb-1">SYSTEM_01</span>
-                        <h2 className="text-2xl font-black tracking-tighter uppercase">Nexus</h2>
-                    </div>
-                    <button className="border border-white/20 hover:bg-white/10 px-6 py-2 text-[10px] font-mono tracking-widest uppercase transition-colors backdrop-blur-md">
-                        [ Menu ]
-                    </button>
-                </header>
+          <nav className="hidden md:flex items-center gap-8">
+            {navLinks.map((link) => (
+              <a
+                key={link.name}
+                href={link.href}
+                className="text-[10px] font-mono tracking-widest uppercase text-gray-400 hover:text-white transition-colors"
+              >
+                {link.name}
+              </a>
+            ))}
+          </nav>
 
-                {/* Center Hero */}
-                <div className="flex flex-col items-start max-w-4xl">
-                    <div className="overflow-hidden mb-6">
-                        <div className="inline-flex items-center gap-3 px-3 py-1 border border-purple-500/30 bg-purple-900/10 backdrop-blur-md rounded-none">
-                            <span className="relative flex h-2 w-2">
-                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
-                                <span className="relative inline-flex rounded-full h-2 w-2 bg-purple-500"></span>
-                            </span>
-                            <span className="text-[10px] font-mono uppercase tracking-widest text-purple-200">
-                                Neural Net: Online
-                            </span>
-                        </div>
-                    </div>
+          <button className="border border-white/20 hover:bg-white/10 px-6 py-2 text-[10px] font-mono tracking-widest uppercase transition-colors backdrop-blur-md">
+            [ Resume ]
+          </button>
+        </header>
 
-                    <h1 className="text-6xl md:text-9xl font-medium tracking-tighter leading-[0.9] mix-blend-overlay">
-                        DIGITAL<br />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-200 to-transparent">SINGULARITY</span>
-                    </h1>
-
-                    <div className="h-px w-32 bg-white/30 my-8"></div>
-
-                    <p className="max-w-md text-sm md:text-lg text-gray-400 leading-relaxed font-light">
-                        We are charting the unknown regions of the digital void.
-                        Leave a trail of light in the darkness.
-                    </p>
-
-                    <div className="mt-12 pointer-events-auto flex gap-6">
-                        <button className="bg-white text-black px-8 py-4 font-bold text-xs uppercase tracking-widest hover:bg-purple-300 transition-colors">
-                            Initialize
-                        </button>
-                        <button className="text-white border-b border-white/30 pb-1 text-xs uppercase tracking-widest hover:border-white transition-colors">
-                            Read Manifesto
-                        </button>
-                    </div>
-                </div>
-
-                {/* Footer Data */}
-                <div className="flex justify-between items-end text-[10px] font-mono text-gray-500 uppercase tracking-widest">
-                    <div className="flex flex-col gap-2">
-                        <span>CPU: 12%</span>
-                        <span>MEM: 404MB</span>
-                    </div>
-                    <div>
-                        // v2.0.4 -- Deployment Ready
-                    </div>
-                </div>
-
+        {/* Center Hero */}
+        <div className="flex flex-col items-start max-w-4xl">
+          <div className="overflow-hidden mb-6">
+            <div className="inline-flex items-center gap-3 px-3 py-1 border border-purple-500/30 bg-purple-900/10 backdrop-blur-md rounded-none">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-purple-500"></span>
+              </span>
+              <span className="text-[10px] font-mono uppercase tracking-widest text-purple-200">
+                Status: Available for Work
+              </span>
             </div>
-        </main>
-    );
+          </div>
+
+          <h1 className="text-6xl md:text-9xl font-medium tracking-tighter leading-[0.9] mix-blend-overlay">
+            ADITYA PAUL
+            <br />
+          </h1>
+
+          <div className="h-px w-32 bg-white/30 my-8"></div>
+
+          <p className="max-w-md text-sm md:text-lg text-gray-400 leading-relaxed font-light">
+            Full-stack engineer specializing in building high-performance
+            digital experiences. Crafting the future of the web with code and
+            creativity.
+          </p>
+
+          <div className="mt-12 pointer-events-auto flex gap-6">
+            <button className="bg-white text-black px-8 py-4 font-bold text-xs uppercase tracking-widest hover:bg-purple-300 transition-colors">
+              View Projects
+            </button>
+            <button className="text-white border-b border-white/30 pb-1 text-xs uppercase tracking-widest hover:border-white transition-colors">
+              Get in Touch
+            </button>
+          </div>
+        </div>
+
+        {/* Footer Data */}
+        <div className="flex justify-between items-end text-[10px] font-mono text-gray-500 uppercase tracking-widest">
+          <div className="flex flex-col gap-2">
+            <span>LAT: 28.6139° N</span>
+            <span>LON: 77.2090° E</span>
+          </div>
+          <div className="flex flex-col items-end gap-1">
+            <span>// SCROLL_TO_EXPLORE</span>
+            <span>© 2026 ADITYA PAUL.ALL_RIGHTS_RESERVED</span>
+          </div>
+        </div>
+      </div>
+    </main>
+  );
 }

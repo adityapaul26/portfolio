@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "My Portfolio",
+  title: "Aditya Paul | Portfolio",
   description: "A showcase of my work and skills.",
 };
 
