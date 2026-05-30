@@ -11,6 +11,7 @@ import {
   Color,
 } from "ogl";
 import AsciiArtDemo from "@/components/ascii-art-demo";
+import { ScrollProgress } from "@/components/ui/scroll-progress";
 
 // ----------------------------------------------------------------------
 // COMPONENT: INTERSTELLAR FLUID (Simulation Logic)
@@ -350,22 +351,22 @@ export default function InterstellarFluidHero() {
             */}
       <div className="relative z-20 flex flex-col justify-between w-full h-full text-white pointer-events-none">
         {/* Navbar */}
-        <header className="fixed top-0 left-0 w-full flex justify-between items-center p-6 md:px-16 md:py-8 z-50 pointer-events-auto bg-black/20 backdrop-blur-xl border-b border-white/5 shadow-2xl">
+        <header className="fixed top-0 left-0 w-full flex justify-between items-center p-4 md:px-12 md:py-4 z-50 pointer-events-auto bg-black/20 backdrop-blur-xl border-b border-white/5 shadow-2xl">
           <div className="flex flex-col">
-            <span className="text-[10px] font-bold tracking-[0.2em] text-purple-400 mb-0.5">
+            <span className="text-[8px] font-bold tracking-[0.2em] text-purple-400 mb-0.5">
               PORTFOLIO_V1.0
             </span>
-            <h2 className="text-xl md:text-2xl font-black tracking-tighter uppercase font-mono bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
+            <h2 className="text-lg md:text-xl font-black tracking-tighter uppercase font-mono bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
               ADITYA PAUL
             </h2>
           </div>
 
-          <nav className="hidden md:flex items-center gap-10">
+          <nav className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
-                className="text-[10px] font-mono tracking-[0.25em] uppercase text-gray-400 hover:text-purple-400 transition-all duration-300 relative group"
+                className="text-[9px] font-mono tracking-[0.25em] uppercase text-gray-400 hover:text-purple-400 transition-all duration-300 relative group"
               >
                 {link.name}
                 <span className="absolute -bottom-1 left-0 w-0 h-px bg-purple-500 transition-all duration-300 group-hover:w-full"></span>
@@ -373,13 +374,14 @@ export default function InterstellarFluidHero() {
             ))}
           </nav>
 
-          <button className="border border-purple-500/30 hover:border-purple-500 hover:bg-purple-500/10 px-6 py-2.5 text-[10px] font-mono tracking-widest uppercase transition-all duration-300 backdrop-blur-md rounded-sm">
+          <button className="border border-purple-500/30 hover:border-purple-500 hover:bg-purple-500/10 px-5 py-1.5 text-[9px] font-mono tracking-widest uppercase transition-all duration-300 backdrop-blur-md rounded-sm">
             [ Resume ]
           </button>
+          <ScrollProgress className="absolute top-full" />
         </header>
 
         {/* Padding for content if needed, though Hero is h-screen */}
-        <div className="flex flex-col md:flex-row items-center justify-between w-full max-w-7xl gap-12 flex-1 p-8 md:p-16 pt-32 md:pt-40 mx-auto">
+        <div className="flex flex-col md:flex-row items-center justify-between w-full max-w-7xl gap-12 flex-1 p-8 md:p-16 pt-24 md:pt-32 mx-auto">
           <div className="flex flex-col items-start max-w-2xl">
             <div className="overflow-hidden mb-6">
               <div className="inline-flex items-center gap-3 px-3 py-1 border border-purple-500/30 bg-purple-900/10 backdrop-blur-md rounded-none">
