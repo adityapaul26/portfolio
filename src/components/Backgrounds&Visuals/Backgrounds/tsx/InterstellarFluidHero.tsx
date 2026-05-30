@@ -308,7 +308,7 @@ const InterstellarFluid: React.FC<InterstellarProps> = ({
 };
 
 // ----------------------------------------------------------------------
-// PAGE: MODERN INTERSTELLAR HERO (Personalized for Aditya)
+// PAGE: MODERN INTERSTELLAR HERO (Personalized for Aditya Paul)
 // ----------------------------------------------------------------------
 
 export default function InterstellarFluidHero() {
@@ -354,8 +354,8 @@ export default function InterstellarFluidHero() {
             <span className="text-xs font-bold tracking-[0.2em] text-purple-300 mb-1">
               PORTFOLIO_V1.0
             </span>
-            <h2 className="text-2xl font-black tracking-tighter uppercase">
-              ADITYA
+            <h2 className="text-2xl font-black tracking-tighter uppercase font-mono">
+              ADITYA PAUL
             </h2>
           </div>
 
@@ -390,12 +390,12 @@ export default function InterstellarFluidHero() {
             </div>
           </div>
 
-          <h1 className="text-6xl md:text-9xl font-medium tracking-tighter leading-[0.9] mix-blend-overlay">
-            ADITYA PAUL
-            <br />
+          <h1 className="text-6xl md:text-9xl font-black tracking-tighter leading-[0.9] mix-blend-overlay font-mono uppercase italic">
+            ADITYA<br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-200 to-transparent">PAUL</span>
           </h1>
 
-          <div className="h-px w-32 bg-white/30 my-8"></div>
+          <div className="h-px w-32 bg-white/30 mt-4 mb-8"></div>
 
           <p className="max-w-md text-sm md:text-lg text-gray-400 leading-relaxed font-light">
             Full-stack engineer specializing in building high-performance
