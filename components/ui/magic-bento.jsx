@@ -5,6 +5,7 @@ import { gsap } from 'gsap';
 import createGlobe from 'cobe';
 import { useMotionValue, useSpring } from 'motion/react';
 import { IconCloud } from '@/components/ui/icon-cloud';
+import TrueFocus from '@/components/ui/true-focus';
 
 const DEFAULT_PARTICLE_COUNT = 12;
 const DEFAULT_SPOTLIGHT_RADIUS = 300;
@@ -90,7 +91,8 @@ const cardData = [
     color: '#120F17',
     title: 'Interactive',
     description: 'Crafting performant and rich user interfaces.',
-    label: 'Focus'
+    label: 'Focus',
+    trueFocus: true
   },
   {
     color: '#120F17',
@@ -227,9 +229,22 @@ export function Globe({ className = '', style, config = GLOBE_CONFIG }) {
 
 const IconCloudDemo = () => (
   <div className="absolute inset-0 z-0 flex size-full items-center justify-center overflow-hidden opacity-80">
-    <div className="size-[18rem] max-w-full">
+    <div className="size-[28rem] max-w-none">
       <IconCloud images={iconCloudImages} />
     </div>
+  </div>
+);
+
+const SkillFocus = () => (
+  <div className="absolute inset-x-4 top-1/2 z-0 -translate-y-1/2 overflow-hidden opacity-90">
+    <TrueFocus
+      sentence="backend linux nextjs react typescript docker"
+      blurAmount={3}
+      borderColor="#ffffff"
+      glowColor="rgba(255, 255, 255, 0.55)"
+      animationDuration={0.45}
+      pauseBetweenAnimations={0.65}
+    />
   </div>
 );
 
@@ -821,6 +836,7 @@ const MagicBento = ({
                     />
                   )}
                   {card.iconCloud && <IconCloudDemo />}
+                  {card.trueFocus && <SkillFocus />}
                   <div className="card__header flex justify-between gap-3 relative z-10 text-white">
                     <span className="card__label text-base">{card.label}</span>
                   </div>
@@ -960,6 +976,7 @@ const MagicBento = ({
                   />
                 )}
                 {card.iconCloud && <IconCloudDemo />}
+                {card.trueFocus && <SkillFocus />}
                 <div className="card__header flex justify-between gap-3 relative z-10 text-white">
                   <span className="card__label text-base">{card.label}</span>
                 </div>
