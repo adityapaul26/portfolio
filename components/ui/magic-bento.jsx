@@ -4,12 +4,48 @@ import { useRef, useEffect, useState, useCallback } from 'react';
 import { gsap } from 'gsap';
 import createGlobe from 'cobe';
 import { useMotionValue, useSpring } from 'motion/react';
+import { IconCloud } from '@/components/ui/icon-cloud';
 
 const DEFAULT_PARTICLE_COUNT = 12;
 const DEFAULT_SPOTLIGHT_RADIUS = 300;
 const DEFAULT_GLOW_COLOR = '132, 0, 255';
 const MOBILE_BREAKPOINT = 768;
 const MOVEMENT_DAMPING = 1400;
+
+const iconCloudSlugs = [
+  'typescript',
+  'javascript',
+  'dart',
+  'java',
+  'react',
+  'flutter',
+  'android',
+  'html5',
+  'css3',
+  'nodedotjs',
+  'express',
+  'nextdotjs',
+  'prisma',
+  'amazonaws',
+  'postgresql',
+  'firebase',
+  'nginx',
+  'vercel',
+  'testinglibrary',
+  'jest',
+  'cypress',
+  'docker',
+  'git',
+  'jira',
+  'github',
+  'gitlab',
+  'visualstudiocode',
+  'androidstudio',
+  'sonarqube',
+  'figma'
+];
+
+const iconCloudImages = iconCloudSlugs.map(slug => `https://cdn.simpleicons.org/${slug}/${slug}`);
 
 const GLOBE_CONFIG = {
   width: 800,
@@ -47,7 +83,8 @@ const cardData = [
     color: '#120F17',
     title: 'Modern Web',
     description: 'React, Next.js, WebGL, and TailwindCSS.',
-    label: 'Tech Stack'
+    label: 'Tech Stack',
+    iconCloud: true
   },
   {
     color: '#120F17',
@@ -187,6 +224,14 @@ export function Globe({ className = '', style, config = GLOBE_CONFIG }) {
     </div>
   );
 }
+
+const IconCloudDemo = () => (
+  <div className="absolute inset-0 z-0 flex size-full items-center justify-center overflow-hidden opacity-80">
+    <div className="size-[18rem] max-w-full">
+      <IconCloud images={iconCloudImages} />
+    </div>
+  </div>
+);
 
 const ParticleCard = ({
   children,
@@ -775,6 +820,7 @@ const MagicBento = ({
                       style={{ inset: 'auto -70% -70% auto', width: '165%', maxWidth: 'none' }}
                     />
                   )}
+                  {card.iconCloud && <IconCloudDemo />}
                   <div className="card__header flex justify-between gap-3 relative z-10 text-white">
                     <span className="card__label text-base">{card.label}</span>
                   </div>
@@ -913,6 +959,7 @@ const MagicBento = ({
                     style={{ inset: 'auto -70% -70% auto', width: '165%', maxWidth: 'none' }}
                   />
                 )}
+                {card.iconCloud && <IconCloudDemo />}
                 <div className="card__header flex justify-between gap-3 relative z-10 text-white">
                   <span className="card__label text-base">{card.label}</span>
                 </div>
