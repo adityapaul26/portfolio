@@ -361,12 +361,12 @@ export default function InterstellarFluidHero() {
             </h2>
           </div>
 
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-10">
             {navLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
-                className="text-[9px] font-mono tracking-[0.25em] uppercase text-gray-400 hover:text-purple-400 transition-all duration-300 relative group"
+                className="text-[11px] font-mono tracking-[0.2em] uppercase text-gray-300 hover:text-purple-400 transition-all duration-300 relative group font-bold"
               >
                 {link.name}
                 <span className="absolute -bottom-1 left-0 w-0 h-px bg-purple-500 transition-all duration-300 group-hover:w-full"></span>
