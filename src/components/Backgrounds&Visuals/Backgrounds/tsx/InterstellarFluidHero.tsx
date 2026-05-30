@@ -348,37 +348,38 @@ export default function InterstellarFluidHero() {
                LAYER 2: UI CONTENT 
                Modern, sharp, high-contrast
             */}
-      <div className="relative z-20 flex flex-col justify-between w-full h-full p-8 md:p-16 text-white pointer-events-none">
+      <div className="relative z-20 flex flex-col justify-between w-full h-full text-white pointer-events-none">
         {/* Navbar */}
-        <header className="flex justify-between items-center pointer-events-auto">
+        <header className="fixed top-0 left-0 w-full flex justify-between items-center p-6 md:px-16 md:py-8 z-50 pointer-events-auto bg-black/20 backdrop-blur-xl border-b border-white/5 shadow-2xl">
           <div className="flex flex-col">
-            <span className="text-xs font-bold tracking-[0.2em] text-purple-300 mb-1">
+            <span className="text-[10px] font-bold tracking-[0.2em] text-purple-400 mb-0.5">
               PORTFOLIO_V1.0
             </span>
-            <h2 className="text-2xl font-black tracking-tighter uppercase font-mono">
+            <h2 className="text-xl md:text-2xl font-black tracking-tighter uppercase font-mono bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
               ADITYA PAUL
             </h2>
           </div>
 
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-10">
             {navLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
-                className="text-[10px] font-mono tracking-widest uppercase text-gray-400 hover:text-white transition-colors"
+                className="text-[10px] font-mono tracking-[0.25em] uppercase text-gray-400 hover:text-purple-400 transition-all duration-300 relative group"
               >
                 {link.name}
+                <span className="absolute -bottom-1 left-0 w-0 h-px bg-purple-500 transition-all duration-300 group-hover:w-full"></span>
               </a>
             ))}
           </nav>
 
-          <button className="border border-white/20 hover:bg-white/10 px-6 py-2 text-[10px] font-mono tracking-widest uppercase transition-colors backdrop-blur-md">
+          <button className="border border-purple-500/30 hover:border-purple-500 hover:bg-purple-500/10 px-6 py-2.5 text-[10px] font-mono tracking-widest uppercase transition-all duration-300 backdrop-blur-md rounded-sm">
             [ Resume ]
           </button>
         </header>
 
-        {/* Center Hero */}
-        <div className="flex flex-col md:flex-row items-center justify-between w-full max-w-7xl gap-12 flex-1">
+        {/* Padding for content if needed, though Hero is h-screen */}
+        <div className="flex flex-col md:flex-row items-center justify-between w-full max-w-7xl gap-12 flex-1 p-8 md:p-16 pt-32 md:pt-40 mx-auto">
           <div className="flex flex-col items-start max-w-2xl">
             <div className="overflow-hidden mb-6">
               <div className="inline-flex items-center gap-3 px-3 py-1 border border-purple-500/30 bg-purple-900/10 backdrop-blur-md rounded-none">
@@ -423,8 +424,8 @@ export default function InterstellarFluidHero() {
           </div>
         </div>
 
-        {/* Footer Data */}
-        <div className="flex justify-between items-end text-[10px] font-mono text-gray-500 uppercase tracking-widest">
+        {/* Footer Data - Fixed at bottom */}
+        <div className="fixed bottom-0 left-0 w-full flex justify-between items-end p-8 md:px-16 md:py-8 text-[10px] font-mono text-gray-500 uppercase tracking-widest pointer-events-none z-40">
           <div className="flex flex-col gap-2">
             <span>LAT: 28.6139° N</span>
             <span>LON: 77.2090° E</span>
