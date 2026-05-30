@@ -402,7 +402,7 @@ export default function InterstellarFluidHero() {
 
             <div className="h-px w-32 bg-white/30 mt-4 mb-8"></div>
 
-            <p className="max-w-md text-sm md:text-lg text-gray-400 leading-relaxed font-light">
+            <p className="max-w-md text-sm md:text-lg text-gray-400 leading-relaxed font-light font-mono">
               Full-stack engineer specializing in building high-performance
               digital experiences. Crafting the future of the web with code and
               creativity.
