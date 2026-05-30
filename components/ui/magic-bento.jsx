@@ -559,7 +559,7 @@ const GlobalSpotlight = ({
 
 const BentoCardGrid = ({ children, gridRef }) => (
   <div
-    className="bento-section grid gap-2 p-3 max-w-[54rem] w-full select-none relative mx-auto"
+    className="bento-section grid gap-2 p-3 max-w-[64rem] w-full select-none relative mx-auto"
     style={{ fontSize: 'clamp(1rem, 0.9rem + 0.5vw, 1.5rem)' }}
     ref={gridRef}
   >
@@ -742,7 +742,7 @@ const MagicBento = ({
       <BentoCardGrid gridRef={gridRef}>
         <div className="card-responsive grid gap-2">
           {cardData.map((card, index) => {
-            const baseClassName = `card flex flex-col justify-between relative aspect-[4/3] min-h-[200px] w-full max-w-full p-5 rounded-[20px] border border-solid font-light overflow-hidden transition-colors duration-300 ease-in-out hover:-translate-y-0.5 hover:shadow-[0_8px_25px_rgba(0,0,0,0.15)] ${
+            const baseClassName = `card flex flex-col justify-between relative aspect-[4/3] min-h-[240px] w-full max-w-full p-5 rounded-[20px] border border-solid font-light overflow-hidden transition-colors duration-300 ease-in-out hover:-translate-y-0.5 hover:shadow-[0_8px_25px_rgba(0,0,0,0.15)] ${
               enableBorderGlow ? 'card--border-glow' : ''
             }`;
 
@@ -772,7 +772,7 @@ const MagicBento = ({
                   {card.globe && (
                     <Globe
                       className="z-0 opacity-80"
-                      style={{ inset: 'auto -50% -50% auto', width: '120%', maxWidth: 'none' }}
+                      style={{ inset: 'auto -70% -70% auto', width: '165%', maxWidth: 'none' }}
                     />
                   )}
                   <div className="card__header flex justify-between gap-3 relative z-10 text-white">
@@ -910,7 +910,7 @@ const MagicBento = ({
                 {card.globe && (
                   <Globe
                     className="z-0 opacity-80"
-                    style={{ inset: 'auto -50% -50% auto', width: '120%', maxWidth: 'none' }}
+                    style={{ inset: 'auto -70% -70% auto', width: '165%', maxWidth: 'none' }}
                   />
                 )}
                 <div className="card__header flex justify-between gap-3 relative z-10 text-white">
