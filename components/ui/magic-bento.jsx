@@ -66,6 +66,61 @@ const GLOBE_CONFIG = {
   markers: [{ location: [22.5726, 88.3639], size: 0.035 }],
 };
 
+const ConnectCard = () => {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText("adityapaul2603@gmail.com");
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  return (
+    <div className="mt-4 flex flex-col gap-4">
+      <p className="text-xs opacity-70">adityapaul2603@gmail.com</p>
+      <button
+        onClick={handleCopy}
+        className="flex items-center justify-center gap-2 bg-[#1a1621] hover:bg-[#251f2e] text-white py-2 px-4 rounded-full border border-white/10 transition-all active:scale-95 group min-w-[160px]"
+      >
+        {copied ? (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#4ade80"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        ) : (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="opacity-70 group-hover:opacity-100 transition-opacity"
+          >
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+        )}
+        <span className="text-sm font-medium">
+          {copied ? "Copied!" : "Copy Email Address"}
+        </span>
+      </button>
+    </div>
+  );
+};
+
 const cardData = [
   {
     color: "#120F17",
@@ -117,9 +172,9 @@ const cardData = [
   },
   {
     color: "#120F17",
-    title: "Available",
-    description: "Open to new opportunities and collaborations.",
-    label: "Status",
+    title: "Connect",
+    description: <ConnectCard />,
+    label: "Contact",
   },
 ];
 
