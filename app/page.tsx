@@ -1,5 +1,6 @@
 import InterstellarFluidHero from "@/src/components/Backgrounds&Visuals/Backgrounds/tsx/InterstellarFluidHero";
 import MagicBento from "@/components/ui/magic-bento";
+import ProjectsSection from "@/components/ui/projects";
 import { ScrollProgress } from "@/components/ui/scroll-progress";
 import ClickSpark from "@/components/ui/click-spark";
 
@@ -39,14 +40,16 @@ export default function Home() {
             particleCount={12}
             glowColor="132, 0, 255"
           />
-        </section>
+</section>
 
+        {/* Projects Section */}
         <section className="py-16 md:py-24 relative z-10">
-          <div className="max-w-7xl mx-auto px-6 md:px-16 mb-12 md:mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 tracking-tighter uppercase font-mono text-right">
-              Journey
+          <div className="max-w-7xl mx-auto px-6 md:px-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 tracking-tighter uppercase font-mono text-center">
+              Projects
             </h2>
-            <div className="h-1 w-20 bg-purple-500 ml-auto"></div>
+            <div className="h-1 w-20 bg-purple-500 mx-auto mb-8"></div>
+            <div className="mt-12"><ProjectsSection /></div>
           </div>
         </section>
       </div>
