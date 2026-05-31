@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 // Define a type for project data
 interface Project {
   title: string;
+  displayTitle: string;
   href: string;
   description: string;
   tagline?: string;
@@ -17,8 +18,9 @@ interface Project {
 // Sample data for six projects
 const projects: Project[] = [
   {
-    title: "AlgoScope",
-    href: "https://github.com/adityapaul002/AlgoScope",
+    title: "algoscope-hq/AlgoScope",
+    displayTitle: "AlgoScope",
+    href: "https://github.com/algoscope-hq/AlgoScope",
     description: "A modern, high-fidelity algorithm visualizer designed to demystify complex data structures through real-time canvas abstractions.",
     tagline: "Interactive Algorithm Visualization Engine",
     tech: ["JavaScript", "HTML5 Canvas", "Algorithms"],
@@ -26,8 +28,9 @@ const projects: Project[] = [
     gradient: "from-pink-500 via-purple-500 to-indigo-500",
   },
   {
-    title: "mythSh",
-    href: "https://github.com/adityapaul002/mythSh",
+    title: "adityapaul26/mythSh",
+    displayTitle: "mythSh",
+    href: "https://github.com/adityapaul26/mythSh",
     description: "A lightweight, lightning-fast custom terminal shell built entirely in low-level C. Designed for clean command-line executions.",
     tagline: "POSIX-Compliant Minimal Systems Shell",
     tech: ["C", "Systems Programming", "POSIX"],
@@ -35,8 +38,9 @@ const projects: Project[] = [
     gradient: "from-emerald-500 via-green-500 to-teal-500",
   },
   {
-    title: "Bimagic",
-    href: "https://github.com/adityapaul002/bimagic",
+    title: "bimagic/bimagic",
+    displayTitle: "Bimagic",
+    href: "https://github.com/bimagic/bimagic",
     description: "A powerful Bash-based Git automation helper engineered to simplify local repository pipelines and stage complex branch sequences.",
     tagline: "POSIX Shell Version Control Orchestrator",
     tech: ["Shell", "Bash", "Git Automation"],
@@ -44,8 +48,9 @@ const projects: Project[] = [
     gradient: "from-yellow-500 via-orange-500 to-red-500",
   },
   {
-    title: "CPBuddy",
-    href: "https://github.com/adityapaul002/CPBuddy",
+    title: "adityapaul26/CPBuddy",
+    displayTitle: "CPBuddy",
+    href: "https://github.com/adityapaul26/CPBuddy",
     description: "A native Android hub written in Kotlin for algorithmic developers. Features continuous telemetry streams to aggregate contest calendars.",
     tagline: "Analytical Competitive Programming Portal",
     tech: ["Kotlin", "Android", "API Integration"],
@@ -53,8 +58,9 @@ const projects: Project[] = [
     gradient: "from-blue-500 via-indigo-500 to-purple-500",
   },
   {
-    title: "Portfolio",
-    href: "https://github.com/adityapaul002/portfolio-v1",
+    title: "adityapaul26/portfolio",
+    displayTitle: "Portfolio",
+    href: "https://github.com/adityapaul26/portfolio",
     description: "A high-contrast, linear developer canvas built with Next.js, TypeScript, and Tailwind CSS. Uses strict vertical scroll snap mechanisms.",
     tagline: "Full-Screen Telemetry Dashboard Frame",
     tech: ["TypeScript", "Next.js", "Tailwind CSS", "Framer Motion"],
@@ -62,8 +68,9 @@ const projects: Project[] = [
     gradient: "from-gray-500 via-slate-500 to-zinc-500",
   },
   {
-    title: "Inkspire",
-    href: "https://github.com/adityapaul002/Inkspire",
+    title: "adityapaul26/inkspire",
+    displayTitle: "Inkspire",
+    href: "https://github.com/adityapaul26/inkspire",
     description: "A secure, server-rendered blogging framework built using the Node.js ecosystem. Implements MongoDB for structural persistence.",
     tagline: "Full-Stack MVC Content Portal",
     tech: ["Node.js", "Express", "MongoDB", "EJS"],
@@ -90,10 +97,9 @@ export default function ProjectsSection() {
             <div className="w-[20rem] h-[12rem]" />
           </PinContainer>
 
-          
           <div className="mt-12 text-center max-w-xs px-4">
             <h3 className="font-bold text-xl text-slate-100 mb-1 group-hover:text-purple-400 transition-colors">
-              {project.title}
+              {project.displayTitle}
             </h3>
             <p className="text-xs text-purple-500/80 font-mono mb-2 uppercase tracking-widest">
               {project.tagline}
