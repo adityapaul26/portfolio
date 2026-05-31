@@ -6,6 +6,7 @@ import createGlobe from "cobe";
 import { useMotionValue, useSpring } from "motion/react";
 import { IconCloud } from "@/components/ui/icon-cloud";
 import TrueFocus from "@/components/ui/true-focus";
+import { OrbitingCircles } from "@/components/ui/orbiting-circles";
 
 const DEFAULT_PARTICLE_COUNT = 12;
 const DEFAULT_SPOTLIGHT_RADIUS = 300;
@@ -150,26 +151,25 @@ const cardData = [
     label: "Focus",
     trueFocus: true,
   },
-  {
-    color: "#120F17",
-    title: "Workspace Tools",
-    description: (
-      <div className="mt-2">
-        <a
-          href="https://skillicons.dev"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img
-            src="https://skillicons.dev/icons?i=linux,ubuntu,arch,vim,neovim,discord,obsidian,vercel,vscode&perline=3"
-            alt="My Tools"
-            className="h-35 w-auto"
-          />
-        </a>
-      </div>
-    ),
-    label: "Workspace",
-  },
+    {
+      color: "#120F17",
+      title: "Workspace Tools",
+      description: (
+        <div className="mt-2 overflow-hidden h-48" style={{ clipPath: 'inset(0 0 50% 0)' }}>
+            <OrbitingCircles radius={80} path={false} className="h-full w-full">
+              <img src="https://skillicons.dev/icons?i=linux" className="h-8 w-8" />
+              <img src="https://skillicons.dev/icons?i=ubuntu" className="h-8 w-8" />
+              <img src="https://skillicons.dev/icons?i=arch" className="h-8 w-8" />
+              <img src="https://skillicons.dev/icons?i=vim" className="h-8 w-8" />
+              <img src="https://skillicons.dev/icons?i=neovim" className="h-8 w-8" />
+              <img src="https://skillicons.dev/icons?i=docker" className="h-8 w-8" />
+              <img src="https://skillicons.dev/icons?i=git" className="h-8 w-8" />
+              <img src="https://skillicons.dev/icons?i=github" className="h-8 w-8" />
+            </OrbitingCircles>
+          </div>
+      ),
+      label: "Workspace",
+    },
   {
     color: "#120F17",
     title: "Connect",
