@@ -76,7 +76,7 @@ const TrueFocus = ({
             ref={el => {
               wordRefs.current[index] = el;
             }}
-            className="relative cursor-pointer text-[3rem] font-black"
+            className="relative cursor-pointer text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black"
             style={{
               filter: isActive ? 'blur(0px)' : `blur(${blurAmount}px)`,
               '--border-color': borderColor,

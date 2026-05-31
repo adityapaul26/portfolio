@@ -304,7 +304,7 @@ export function Globe({ className = "", style, config = GLOBE_CONFIG }) {
 
 const IconCloudDemo = () => (
   <div className="absolute inset-0 z-0 flex size-full items-center justify-center overflow-hidden opacity-80">
-    <div className="size-[28rem] max-w-none">
+    <div className="size-[20rem] sm:size-[28rem] max-w-none">
       <IconCloud images={iconCloudImages} />
     </div>
   </div>
@@ -816,6 +816,22 @@ const MagicBento = ({
             }
           }
           
+          @media (max-width: 1023px) and (min-width: 640px) {
+            .card-responsive {
+              grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .card-responsive .card:nth-child(3) {
+              grid-column: span 2;
+            }
+          }
+
+          @media (max-width: 639px) {
+            .card-responsive {
+              grid-template-columns: 1fr;
+            }
+          }
+          
           .card--border-glow::after {
             content: '';
             position: absolute;
@@ -938,8 +954,8 @@ const MagicBento = ({
                     <Globe
                       className="z-0 opacity-80"
                       style={{
-                        inset: "auto -70% -70% auto",
-                        width: "165%",
+                        inset: "auto -40% -40% auto",
+                        width: "130%",
                         maxWidth: "none",
                       }}
                     />
@@ -1084,8 +1100,8 @@ const MagicBento = ({
                   <Globe
                     className="z-0 opacity-80"
                     style={{
-                      inset: "auto -70% -70% auto",
-                      width: "165%",
+                      inset: "auto -40% -40% auto",
+                      width: "130%",
                       maxWidth: "none",
                     }}
                   />

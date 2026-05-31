@@ -18,10 +18,10 @@ export default function Home() {
 
         <section
           id="about"
-          className="py-24 px-8 md:px-16 max-w-7xl mx-auto relative z-10"
+          className="py-16 md:py-24 px-6 md:px-16 max-w-7xl mx-auto relative z-10"
         >
-          <div className="mb-16">
-            <h2 className="text-4xl font-bold text-white mb-4 tracking-tighter uppercase font-mono">
+          <div className="mb-12 md:mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 tracking-tighter uppercase font-mono">
               About Me
             </h2>
             <div className="h-1 w-20 bg-purple-500"></div>
@@ -41,9 +41,9 @@ export default function Home() {
           />
         </section>
 
-        <section className="py-24 relative z-10">
-          <div className="max-w-7xl mx-auto px-8 md:px-16 mb-16">
-            <h2 className="text-4xl font-bold text-white mb-4 tracking-tighter uppercase font-mono text-right">
+        <section className="py-16 md:py-24 relative z-10">
+          <div className="max-w-7xl mx-auto px-6 md:px-16 mb-12 md:mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 tracking-tighter uppercase font-mono text-right">
               Journey
             </h2>
             <div className="h-1 w-20 bg-purple-500 ml-auto"></div>

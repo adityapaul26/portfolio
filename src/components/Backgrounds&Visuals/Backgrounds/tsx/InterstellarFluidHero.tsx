@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import {
   Renderer,
   Program,
@@ -314,6 +314,7 @@ const InterstellarFluid: React.FC<InterstellarProps> = ({
 // ----------------------------------------------------------------------
 
 export default function InterstellarFluidHero() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navLinks = [
     { name: "About", href: "#about" },
     { name: "Projects", href: "#projects" },
@@ -351,7 +352,7 @@ export default function InterstellarFluidHero() {
             */}
       <div className="relative z-20 flex flex-col justify-between w-full h-full text-white pointer-events-none">
         {/* Navbar */}
-        <header className="fixed top-0 left-0 w-full flex justify-between items-center p-4 md:px-12 md:py-4 z-50 pointer-events-auto bg-black/20 backdrop-blur-xl border-b border-white/5 shadow-2xl">
+        <header className="fixed top-0 left-0 w-full flex justify-between items-center p-4 md:px-12 md:py-4 z-50 pointer-events-auto bg-black/40 backdrop-blur-xl border-b border-white/5 shadow-2xl">
           <div className="flex flex-col">
             <span className="text-[8px] font-bold tracking-[0.2em] text-purple-400 mb-0.5">
               PORTFOLIO_V1.0
@@ -374,28 +375,61 @@ export default function InterstellarFluidHero() {
             ))}
           </nav>
 
-          <button className="border border-purple-500/30 hover:border-purple-500 hover:bg-purple-500/10 px-5 py-1.5 text-[9px] font-mono tracking-widest uppercase transition-all duration-300 backdrop-blur-md rounded-sm">
-            [ Resume ]
-          </button>
+          <div className="flex items-center gap-4">
+            <button className="hidden sm:block border border-purple-500/30 hover:border-purple-500 hover:bg-purple-500/10 px-5 py-1.5 text-[9px] font-mono tracking-widest uppercase transition-all duration-300 backdrop-blur-md rounded-sm">
+              [ Resume ]
+            </button>
+            <button 
+              className="md:hidden text-white p-2"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              <div className="w-6 h-5 flex flex-col justify-between">
+                <span className={`h-0.5 w-full bg-white transition-all ${isMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
+                <span className={`h-0.5 w-full bg-white transition-all ${isMenuOpen ? 'opacity-0' : ''}`}></span>
+                <span className={`h-0.5 w-full bg-white transition-all ${isMenuOpen ? '-rotate-45 -translate-y-2.5' : ''}`}></span>
+              </div>
+            </button>
+          </div>
           <ScrollProgress className="absolute top-full" />
         </header>
 
-        {/* Padding for content if needed, though Hero is h-screen */}
-        <div className="flex flex-col md:flex-row items-center justify-between w-full max-w-7xl gap-12 flex-1 p-8 md:p-16 pt-24 md:pt-32 mx-auto">
-          <div className="flex flex-col items-start max-w-2xl">
-            <div className="overflow-hidden mb-6">
+        {/* Mobile Menu Overlay */}
+        {isMenuOpen && (
+          <div className="fixed inset-0 z-40 bg-black/95 backdrop-blur-2xl flex flex-col items-center justify-center pointer-events-auto md:hidden">
+            <nav className="flex flex-col items-center gap-8">
+              {navLinks.map((link) => (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  onClick={() => setIsMenuOpen(false)}
+                  className="text-2xl font-mono tracking-[0.3em] uppercase text-white hover:text-purple-400 transition-all duration-300 font-bold"
+                >
+                  {link.name}
+                </a>
+              ))}
+              <button className="mt-4 border border-purple-500 px-8 py-3 text-xs font-mono tracking-widest uppercase transition-all duration-300 rounded-sm">
+                [ Resume ]
+              </button>
+            </nav>
+          </div>
+        )}
+
+        {/* Hero Content */}
+        <div className="flex flex-col lg:flex-row items-center justify-between w-full max-w-7xl gap-8 lg:gap-12 flex-1 p-6 md:p-16 pt-28 md:pt-32 mx-auto overflow-y-auto lg:overflow-hidden">
+          <div className="flex flex-col items-center lg:items-start max-w-2xl text-center lg:text-left">
+            <div className="overflow-hidden mb-4 md:mb-6">
               <div className="inline-flex items-center gap-3 px-3 py-1 border border-purple-500/30 bg-purple-900/10 backdrop-blur-md rounded-none">
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-purple-500"></span>
                 </span>
-                <span className="text-[10px] font-mono uppercase tracking-widest text-purple-200">
+                <span className="text-[8px] md:text-[10px] font-mono uppercase tracking-widest text-purple-200">
                   Status: Available for Work
                 </span>
               </div>
             </div>
 
-            <h1 className="text-6xl md:text-9xl font-black tracking-tighter leading-[0.9] mix-blend-overlay font-mono uppercase italic">
+            <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-tighter leading-[0.9] mix-blend-overlay font-mono uppercase italic">
               ADITYA
               <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-200 to-transparent">
@@ -403,38 +437,38 @@ export default function InterstellarFluidHero() {
               </span>
             </h1>
 
-            <div className="h-px w-32 bg-white/30 mt-4 mb-8"></div>
+            <div className="h-px w-24 md:w-32 bg-white/30 mt-4 mb-6 md:mb-8 mx-auto lg:mx-0"></div>
 
-            <p className="max-w-md text-sm md:text-lg text-gray-400 leading-relaxed font-light font-mono">
+            <p className="max-w-md text-xs sm:text-sm md:text-lg text-gray-400 leading-relaxed font-light font-mono">
               Full-stack engineer specializing in building high-performance
               digital experiences. Crafting the future of the web with code and
               creativity.
             </p>
 
-            <div className="mt-12 pointer-events-auto flex gap-6">
-              <button className="bg-white text-black px-8 py-4 font-bold text-xs uppercase tracking-widest hover:bg-purple-300 transition-colors">
+            <div className="mt-8 md:mt-12 pointer-events-auto flex flex-wrap justify-center lg:justify-start gap-4 md:gap-6">
+              <button className="bg-white text-black px-6 md:px-8 py-3 md:py-4 font-bold text-[10px] md:text-xs uppercase tracking-widest hover:bg-purple-300 transition-colors">
                 View Projects
               </button>
-              <button className="text-white border-b border-white/30 pb-1 text-xs uppercase tracking-widest hover:border-white transition-colors">
+              <button className="text-white border-b border-white/30 pb-1 text-[10px] md:text-xs uppercase tracking-widest hover:border-white transition-colors">
                 Get in Touch
               </button>
             </div>
           </div>
 
-          <div className="flex-1 w-full max-w-lg pointer-events-auto">
+          <div className="w-full max-w-xs sm:max-w-md lg:max-w-lg pointer-events-auto mt-8 lg:mt-0">
             <AsciiArtDemo />
           </div>
         </div>
 
         {/* Footer Data - Fixed at bottom */}
-        <div className="fixed bottom-0 left-0 w-full flex justify-between items-end p-8 md:px-16 md:py-8 text-[10px] font-mono text-gray-500 uppercase tracking-widest pointer-events-none z-40">
-          <div className="flex flex-col gap-2">
+        <div className="relative lg:fixed bottom-0 left-0 w-full flex flex-col sm:flex-row justify-between items-center sm:items-end p-6 md:px-16 md:py-8 text-[8px] md:text-[10px] font-mono text-gray-500 uppercase tracking-widest pointer-events-none z-40 gap-4 sm:gap-0">
+          <div className="flex flex-col gap-1 md:gap-2 text-center sm:text-left">
             <span>LAT: 28.6139° N</span>
             <span>LON: 77.2090° E</span>
           </div>
-          <div className="flex flex-col items-end gap-1">
-            <span>{"// SCROLL_TO_EXPLORE"}</span>
-            <span>© 2026 ADITYA PAUL.ALL_RIGHTS_RESERVED</span>
+          <div className="flex flex-col items-center sm:items-end gap-1">
+            <span className="hidden sm:block">{"// SCROLL_TO_EXPLORE"}</span>
+            <span className="text-center sm:text-right">© 2026 ADITYA PAUL. ALL RIGHTS RESERVED</span>
           </div>
         </div>
       </div>
