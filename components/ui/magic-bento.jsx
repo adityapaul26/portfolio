@@ -124,38 +124,38 @@ const ConnectCard = () => {
 
 const cardData = [
   {
-    color: "#120F17",
+    background: "linear-gradient(135deg, #0f172a 0%, #120f17 100%)",
     title: "Kolkata, India",
     description: "Software Engineer based in West Bengal.",
     label: "Location",
     globe: true,
   },
   {
-    color: "#120F17",
+    background: "linear-gradient(135deg, #1e1b2e 0%, #120f17 100%)",
     title: "Hi, I'm adityapaul26",
     description:
       "I am currently a 3rd year student at Techno Main Salt Lake, pursuing BTech in Information Technology.",
     label: "About Myself",
   },
   {
-    color: "#120F17",
+    background: "linear-gradient(135deg, #2d1b4e 0%, #120f17 100%)",
     title: "Modern Web",
     description: "React, Next.js, WebGL, and TailwindCSS.",
     label: "Tech Stack",
     iconCloud: true,
   },
   {
-    color: "#120F17",
+    background: "linear-gradient(135deg, #1a103d 0%, #120f17 100%)",
     title: "Interactive",
     description: "Crafting performant and rich user interfaces.",
     label: "Focus",
     trueFocus: true,
   },
   {
-    color: "#120F17",
+    background: "linear-gradient(135deg, #0f172a 0%, #120f17 100%)",
     title: "Workspace Tools",
     description: (
-      <div className="mt-2  h-48" style={{ clipPath: "inset(0 0 30% 0)" }}>
+      <div className="mt-2  h-58" style={{ clipPath: "inset(0 0 20% 0)" }}>
         <OrbitingCircles radius={80} path={false} className="h-full w-full">
           <img src="https://skillicons.dev/icons?i=linux" className="h-8 w-8" />
           <img
@@ -183,7 +183,7 @@ const cardData = [
     label: "Workspace",
   },
   {
-    color: "#120F17",
+    background: "linear-gradient(135deg, #1e1b2e 0%, #120f17 100%)",
     title: "Connect",
     description: <ConnectCard />,
     label: "Contact",
@@ -940,7 +940,7 @@ const MagicBento = ({
             }`;
 
             const cardStyle = {
-              backgroundColor: card.color || "var(--background-dark)",
+              background: card.background || "var(--background-dark)",
               borderColor: "var(--border-color)",
               color: "var(--white)",
               "--glow-x": "50%",
