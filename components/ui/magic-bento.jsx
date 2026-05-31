@@ -151,25 +151,37 @@ const cardData = [
     label: "Focus",
     trueFocus: true,
   },
-    {
-      color: "#120F17",
-      title: "Workspace Tools",
-      description: (
-        <div className="mt-2 overflow-hidden h-48" style={{ clipPath: 'inset(0 0 50% 0)' }}>
-            <OrbitingCircles radius={80} path={false} className="h-full w-full">
-              <img src="https://skillicons.dev/icons?i=linux" className="h-8 w-8" />
-              <img src="https://skillicons.dev/icons?i=ubuntu" className="h-8 w-8" />
-              <img src="https://skillicons.dev/icons?i=arch" className="h-8 w-8" />
-              <img src="https://skillicons.dev/icons?i=vim" className="h-8 w-8" />
-              <img src="https://skillicons.dev/icons?i=neovim" className="h-8 w-8" />
-              <img src="https://skillicons.dev/icons?i=docker" className="h-8 w-8" />
-              <img src="https://skillicons.dev/icons?i=git" className="h-8 w-8" />
-              <img src="https://skillicons.dev/icons?i=github" className="h-8 w-8" />
-            </OrbitingCircles>
-          </div>
-      ),
-      label: "Workspace",
-    },
+  {
+    color: "#120F17",
+    title: "Workspace Tools",
+    description: (
+      <div className="mt-2  h-48" style={{ clipPath: "inset(0 0 30% 0)" }}>
+        <OrbitingCircles radius={80} path={false} className="h-full w-full">
+          <img src="https://skillicons.dev/icons?i=linux" className="h-8 w-8" />
+          <img
+            src="https://skillicons.dev/icons?i=ubuntu"
+            className="h-8 w-8"
+          />
+          <img src="https://skillicons.dev/icons?i=arch" className="h-8 w-8" />
+          <img src="https://skillicons.dev/icons?i=vim" className="h-8 w-8" />
+          <img
+            src="https://skillicons.dev/icons?i=neovim"
+            className="h-8 w-8"
+          />
+          <img
+            src="https://skillicons.dev/icons?i=docker"
+            className="h-8 w-8"
+          />
+          <img src="https://skillicons.dev/icons?i=git" className="h-8 w-8" />
+          <img
+            src="https://skillicons.dev/icons?i=github"
+            className="h-8 w-8"
+          />
+        </OrbitingCircles>
+      </div>
+    ),
+    label: "Workspace",
+  },
   {
     color: "#120F17",
     title: "Connect",
