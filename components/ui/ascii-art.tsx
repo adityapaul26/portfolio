@@ -19,7 +19,8 @@ const ASCII_CHARSETS = {
   binary: " 01",
   dots: " \u2022\u25cf",
   minimal: " .:\u2591\u2592",
-  dense: " .'`^\",:;Il!i><~+_-?][}{1)(|/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B @$",
+  dense:
+    " .'`^\",:;Il!i><~+_-?][}{1)(|/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B @$",
   arrows: " \u2190\u2191\u2192\u2193\u2194\u2195\u2196\u2197\u2198\u2199",
   stars: " \u2726\u2727\u2605",
   hash: " -=#",
@@ -46,7 +47,7 @@ const resolveCharset = (charset: string): string => {
 
 const resolveCssColor = (
   color: string,
-  element: HTMLElement | null
+  element: HTMLElement | null,
 ): string => {
   if (!color) return color;
 
@@ -93,7 +94,8 @@ type AsciiArtProps = {
   /** How the image should fit within the ASCII grid */
   objectFit?: "cover" | "contain" | "fill";
 };
-const MATRIX_CHARSET = "\uff8a\uff90\uff8b\uff70\uff73\uff7c\uff85\uff93\uff86\uff7b\uff9c\uff82\uff75\uff98\uff71\uff8e\uff83\uff8f\uff79\uff92\uff74\uff76\uff77\uff91\uff95\uff97\uff7e\uff88\uff7d\uff80\uff87\uff8d";
+const MATRIX_CHARSET =
+  "\uff8a\uff90\uff8b\uff70\uff73\uff7c\uff85\uff93\uff86\uff7b\uff9c\uff82\uff75\uff98\uff71\uff8e\uff83\uff8f\uff79\uff92\uff74\uff76\uff77\uff91\uff95\uff97\uff7e\uff88\uff7d\uff80\uff87\uff8d";
 
 type AsciiPixel = {
   char: string;
@@ -189,12 +191,12 @@ export const AsciiArt: React.FC<AsciiArtProps> = ({
         let dw, dh, dx, dy;
         if (imgAspect > visualAspect) {
           dw = cols;
-          dh = cols / imgAspect * charAspectRatio;
+          dh = (cols / imgAspect) * charAspectRatio;
           dx = 0;
           dy = (rows - dh) / 2;
         } else {
           dh = rows;
-          dw = rows * imgAspect / charAspectRatio;
+          dw = (rows * imgAspect) / charAspectRatio;
           dx = (cols - dw) / 2;
           dy = 0;
         }
@@ -229,7 +231,7 @@ export const AsciiArt: React.FC<AsciiArtProps> = ({
           const adjustedBrightness = a === 0 ? 0 : brightness;
 
           const charIndex = Math.floor(
-            adjustedBrightness * (effectiveCharset.length - 1)
+            adjustedBrightness * (effectiveCharset.length - 1),
           );
           const char = effectiveCharset[charIndex] || " ";
 
@@ -351,7 +353,7 @@ export const AsciiArt: React.FC<AsciiArtProps> = ({
       textColor,
       fontFamily,
       animationStyle,
-    ]
+    ],
   );
 
   useEffect(() => {
@@ -449,7 +451,7 @@ export const AsciiArt: React.FC<AsciiArtProps> = ({
       <div
         className={cn(
           "flex items-center justify-center text-red-500 text-sm font-mono",
-          className
+          className,
         )}
       >
         Error: {error}
@@ -462,7 +464,7 @@ export const AsciiArt: React.FC<AsciiArtProps> = ({
       <div
         className={cn(
           "flex items-center justify-center text-neutral-500 text-sm font-mono animate-pulse",
-          className
+          className,
         )}
         style={{ backgroundColor }}
       >

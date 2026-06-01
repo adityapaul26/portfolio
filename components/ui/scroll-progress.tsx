@@ -23,7 +23,7 @@ export function ScrollProgress({
       ref={ref}
       className={cn(
         "fixed inset-x-0 z-[100] h-0.5 origin-left bg-gradient-to-r from-[#A97CF8] via-[#F38CB8] to-[#FDCC92]",
-        className
+        className,
       )}
       style={{
         scaleX: scrollYProgress,

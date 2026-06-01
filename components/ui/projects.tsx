@@ -25,7 +25,8 @@ const projects: Project[] = [
     displayTitle: "AlgoScope",
     href: "https://github.com/algoscope-hq/AlgoScope",
     liveUrl: "https://algo-scope-virid.vercel.app/",
-    description: "A modern, high-fidelity algorithm visualizer designed to demystify complex data structures through real-time canvas abstractions.",
+    description:
+      "A modern, high-fidelity algorithm visualizer designed to demystify complex data structures through real-time canvas abstractions.",
     tagline: "Interactive Algorithm Visualization Engine",
     tech: ["JavaScript", "HTML5 Canvas", "Algorithms"],
     image: "/images/AlgoScope.png",
@@ -35,7 +36,8 @@ const projects: Project[] = [
     title: "adityapaul26/mythSh",
     displayTitle: "mythSh",
     href: "https://github.com/adityapaul26/mythSh",
-    description: "A lightweight, lightning-fast custom terminal shell built entirely in low-level C. Designed for clean command-line executions.",
+    description:
+      "A lightweight, lightning-fast custom terminal shell built entirely in low-level C. Designed for clean command-line executions.",
     tagline: "POSIX-Compliant Minimal Systems Shell",
     tech: ["C", "Systems Programming", "POSIX"],
     image: "/images/mythSh.png",
@@ -46,7 +48,8 @@ const projects: Project[] = [
     displayTitle: "Bimagic",
     href: "https://github.com/bimagic/bimagic",
     liveUrl: "https://bimagic.vercel.app/",
-    description: "A powerful Bash-based Git automation helper engineered to simplify local repository pipelines and stage complex branch sequences.",
+    description:
+      "A powerful Bash-based Git automation helper engineered to simplify local repository pipelines and stage complex branch sequences.",
     tagline: "POSIX Shell Version Control Orchestrator",
     tech: ["Shell", "Bash", "Git Automation"],
     image: "/images/Bimagic.png",
@@ -56,7 +59,8 @@ const projects: Project[] = [
     title: "adityapaul26/CPBuddy",
     displayTitle: "CPBuddy",
     href: "https://github.com/adityapaul26/CPBuddy",
-    description: "A native Android hub written in Kotlin for algorithmic developers. Features continuous telemetry streams to aggregate contest calendars.",
+    description:
+      "A native Android hub written in Kotlin for algorithmic developers. Features continuous telemetry streams to aggregate contest calendars.",
     tagline: "Analytical Competitive Programming Portal",
     tech: ["Kotlin", "Android", "API Integration"],
     image: "/images/CPBuddy.png",
@@ -67,7 +71,8 @@ const projects: Project[] = [
     displayTitle: "Portfolio",
     href: "https://github.com/adityapaul26/portfolio",
     liveUrl: "https://portfolio-adityapaul26.vercel.app/",
-    description: "A high-contrast, linear developer canvas built with Next.js, TypeScript, and Tailwind CSS. Uses strict vertical scroll snap mechanisms.",
+    description:
+      "A high-contrast, linear developer canvas built with Next.js, TypeScript, and Tailwind CSS. Uses strict vertical scroll snap mechanisms.",
     tagline: "Full-Screen Telemetry Dashboard Frame",
     tech: ["TypeScript", "Next.js", "Tailwind CSS", "Framer Motion"],
     image: "/images/Portfolio.png",
@@ -78,7 +83,8 @@ const projects: Project[] = [
     displayTitle: "Inkspire",
     href: "https://github.com/adityapaul26/inkspire",
     liveUrl: "https://inkspire-gt6m.onrender.com/",
-    description: "A secure, server-rendered blogging framework built using the Node.js ecosystem. Implements MongoDB for structural persistence.",
+    description:
+      "A secure, server-rendered blogging framework built using the Node.js ecosystem. Implements MongoDB for structural persistence.",
     tagline: "Full-Stack MVC Content Portal",
     tech: ["Node.js", "Express", "MongoDB", "EJS"],
     image: "/images/Inkspire.png",
@@ -90,7 +96,8 @@ export default function ProjectsSection() {
   const handleLiveDemo = (url: string, title: string) => {
     if (title.toLowerCase().includes("portfolio")) {
       toast("Recursive Loop Warning", {
-        description: "Damn! That would be recursive... Are you sure you want to go down the rabbit hole?",
+        description:
+          "Damn! That would be recursive... Are you sure you want to go down the rabbit hole?",
         action: {
           label: "Proceed Anyway",
           onClick: () => window.open(url, "_blank", "noopener,noreferrer"),
@@ -132,11 +139,13 @@ export default function ProjectsSection() {
               <p className="text-base text-slate-400 mb-6 leading-relaxed">
                 {project.description}
               </p>
-              
+
               <div className="flex flex-col sm:flex-row items-center md:justify-start gap-6 mb-8">
                 {project.liveUrl && (
                   <button
-                    onClick={() => handleLiveDemo(project.liveUrl!, project.displayTitle)}
+                    onClick={() =>
+                      handleLiveDemo(project.liveUrl!, project.displayTitle)
+                    }
                     className="group/btn relative inline-flex items-center justify-center px-8 py-2.5 font-mono text-xs font-bold text-white transition-all duration-300 rounded-full border border-purple-500/50 hover:border-purple-500 bg-purple-500/10 hover:bg-purple-500/20 active:scale-95 overflow-hidden shadow-[0_0_15px_rgba(168,85,247,0.15)] hover:shadow-[0_0_25px_rgba(168,85,247,0.4)]"
                   >
                     <span className="relative z-10 flex items-center gap-2 tracking-widest uppercase">
@@ -193,5 +202,3 @@ export default function ProjectsSection() {
     </TracingBeam>
   );
 }
-
-

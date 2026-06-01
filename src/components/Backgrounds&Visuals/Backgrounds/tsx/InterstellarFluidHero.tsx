@@ -379,14 +379,20 @@ export default function InterstellarFluidHero() {
             <button className="hidden sm:block border border-purple-500/30 hover:border-purple-500 hover:bg-purple-500/10 px-5 py-1.5 text-[9px] font-mono tracking-widest uppercase transition-all duration-300 backdrop-blur-md rounded-sm">
               [ Resume ]
             </button>
-            <button 
+            <button
               className="md:hidden text-white p-2"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
               <div className="w-6 h-5 flex flex-col justify-between">
-                <span className={`h-0.5 w-full bg-white transition-all ${isMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
-                <span className={`h-0.5 w-full bg-white transition-all ${isMenuOpen ? 'opacity-0' : ''}`}></span>
-                <span className={`h-0.5 w-full bg-white transition-all ${isMenuOpen ? '-rotate-45 -translate-y-2.5' : ''}`}></span>
+                <span
+                  className={`h-0.5 w-full bg-white transition-all ${isMenuOpen ? "rotate-45 translate-y-2" : ""}`}
+                ></span>
+                <span
+                  className={`h-0.5 w-full bg-white transition-all ${isMenuOpen ? "opacity-0" : ""}`}
+                ></span>
+                <span
+                  className={`h-0.5 w-full bg-white transition-all ${isMenuOpen ? "-rotate-45 -translate-y-2.5" : ""}`}
+                ></span>
               </div>
             </button>
           </div>
@@ -468,7 +474,9 @@ export default function InterstellarFluidHero() {
           </div>
           <div className="flex flex-col items-center sm:items-end gap-1">
             <span className="hidden sm:block">{"// SCROLL_TO_EXPLORE"}</span>
-            <span className="text-center sm:text-right">© 2026 ADITYA PAUL. ALL RIGHTS RESERVED</span>
+            <span className="text-center sm:text-right">
+              © 2026 ADITYA PAUL. ALL RIGHTS RESERVED
+            </span>
           </div>
         </div>
       </div>

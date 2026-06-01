@@ -4,6 +4,7 @@ import ProjectsSection from "@/components/ui/projects";
 import SkillMarquee from "@/components/ui/skill-marquee";
 import { ScrollProgress } from "@/components/ui/scroll-progress";
 import ClickSpark from "@/components/ui/click-spark";
+import Experience from "@/components/ui/experience";
 
 export default function Home() {
   return (
@@ -41,10 +42,10 @@ export default function Home() {
             particleCount={12}
             glowColor="132, 0, 255"
           />
-          </section>
+        </section>
 
-          {/* Skills Marquee Section */}
-          <section className="py-12 relative z-10 overflow-hidden">
+        {/* Skills Marquee Section */}
+        <section className="py-12 relative z-10 overflow-hidden">
           <div className="max-w-7xl mx-auto px-6 md:px-16 mb-8">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 tracking-tighter uppercase font-mono text-center">
               Tech Stack
@@ -52,16 +53,29 @@ export default function Home() {
             <div className="h-1 w-20 bg-purple-500 mx-auto"></div>
           </div>
           <SkillMarquee />
-          </section>
+        </section>
 
-          {/* Projects Section */}
-          <section className="py-16 md:py-24 relative z-10">
+        {/* Projects Section */}
+        <section className="py-16 md:py-24 relative z-10">
           <div className="max-w-7xl mx-auto px-6 md:px-16">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 tracking-tighter uppercase font-mono text-center">
               Projects
             </h2>
             <div className="h-1 w-20 bg-purple-500 mx-auto mb-8"></div>
-            <div className="mt-12"><ProjectsSection /></div>
+            <div className="mt-12">
+              <ProjectsSection />
+            </div>
+          </div>
+        </section>
+
+        {/* Experience Section */}
+        <section className="py-16 md:py-24 relative z-10">
+          <div className="max-w-7xl mx-auto px-6 md:px-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 tracking-tighter uppercase font-mono text-center">
+              Experience
+            </h2>
+            <div className="h-1 w-20 bg-purple-500 mx-auto mb-8"></div>
+            <Experience />
           </div>
         </section>
       </div>

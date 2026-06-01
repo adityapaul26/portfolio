@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useEffect, useRef, useState, useMemo, useCallback } from 'react';
+import { useEffect, useRef, useState, useMemo, useCallback } from "react";
 
 const dist = (a: { x: number; y: number }, b: { x: number; y: number }) => {
   const dx = b.x - a.x;
@@ -8,7 +8,12 @@ const dist = (a: { x: number; y: number }, b: { x: number; y: number }) => {
   return Math.sqrt(dx * dx + dy * dy);
 };
 
-const getAttr = (distance: number, maxDist: number, minVal: number, maxVal: number) => {
+const getAttr = (
+  distance: number,
+  maxDist: number,
+  minVal: number,
+  maxVal: number,
+) => {
   const val = maxVal - Math.abs((maxVal * distance) / maxDist);
   return Math.max(minVal, val + minVal);
 };
@@ -42,9 +47,9 @@ interface TextPressureProps {
 }
 
 const TextPressure: React.FC<TextPressureProps> = ({
-  text = 'Compressa',
-  fontFamily = 'Compressa VF',
-  fontUrl = 'https://res.cloudinary.com/dr6lvwubh/raw/upload/v1529908256/CompressaPRO-GX.woff2',
+  text = "Compressa",
+  fontFamily = "Compressa VF",
+  fontUrl = "https://res.cloudinary.com/dr6lvwubh/raw/upload/v1529908256/CompressaPRO-GX.woff2",
   width = true,
   weight = true,
   italic = true,
@@ -52,11 +57,11 @@ const TextPressure: React.FC<TextPressureProps> = ({
   flex = true,
   stroke = false,
   scale = false,
-  textColor = '#FFFFFF',
-  strokeColor = '#FF0000',
+  textColor = "#FFFFFF",
+  strokeColor = "#FF0000",
   strokeWidth = 2,
-  className = '',
-  minFontSize = 24
+  className = "",
+  minFontSize = 24,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
@@ -69,7 +74,7 @@ const TextPressure: React.FC<TextPressureProps> = ({
   const [scaleY, setScaleY] = useState(1);
   const [lineHeight, setLineHeight] = useState(1);
 
-  const chars = text.split('');
+  const chars = text.split("");
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -82,11 +87,12 @@ const TextPressure: React.FC<TextPressureProps> = ({
       cursorRef.current.y = t.clientY;
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('touchmove', handleTouchMove, { passive: true });
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("touchmove", handleTouchMove, { passive: true });
 
     if (containerRef.current) {
-      const { left, top, width, height } = containerRef.current.getBoundingClientRect();
+      const { left, top, width, height } =
+        containerRef.current.getBoundingClientRect();
       mouseRef.current.x = left + width / 2;
       mouseRef.current.y = top + height / 2;
       cursorRef.current.x = mouseRef.current.x;
@@ -94,15 +100,16 @@ const TextPressure: React.FC<TextPressureProps> = ({
     }
 
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('touchmove', handleTouchMove);
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("touchmove", handleTouchMove);
     };
   }, []);
 
   const setSize = useCallback(() => {
     if (!containerRef.current || !titleRef.current) return;
 
-    const { width: containerW, height: containerH } = containerRef.current.getBoundingClientRect();
+    const { width: containerW, height: containerH } =
+      containerRef.current.getBoundingClientRect();
 
     let newFontSize = containerW / (chars.length / 2);
     newFontSize = Math.max(newFontSize, minFontSize);
@@ -126,8 +133,8 @@ const TextPressure: React.FC<TextPressureProps> = ({
   useEffect(() => {
     const debouncedSetSize = debounce(setSize, 100);
     debouncedSetSize();
-    window.addEventListener('resize', debouncedSetSize);
-    return () => window.removeEventListener('resize', debouncedSetSize);
+    window.addEventListener("resize", debouncedSetSize);
+    return () => window.removeEventListener("resize", debouncedSetSize);
   }, [setSize]);
 
   useEffect(() => {
@@ -140,13 +147,13 @@ const TextPressure: React.FC<TextPressureProps> = ({
         const titleRect = titleRef.current.getBoundingClientRect();
         const maxDist = titleRect.width / 2;
 
-        spansRef.current.forEach(span => {
+        spansRef.current.forEach((span) => {
           if (!span) return;
 
           const rect = span.getBoundingClientRect();
           const charCenter = {
             x: rect.x + rect.width / 2,
-            y: rect.y + rect.height / 2
+            y: rect.y + rect.height / 2,
           };
 
           const d = dist(mouseRef.current, charCenter);
@@ -201,22 +208,25 @@ const TextPressure: React.FC<TextPressureProps> = ({
   }, [fontFamily, fontUrl, textColor, strokeColor, strokeWidth]);
 
   return (
-    <div ref={containerRef} className="relative w-full h-full overflow-hidden bg-transparent">
+    <div
+      ref={containerRef}
+      className="relative w-full h-full overflow-hidden bg-transparent"
+    >
       {styleElement}
       <h1
         ref={titleRef}
         className={`text-pressure-title ${className} ${
-          flex ? 'flex justify-between' : ''
-        } ${stroke ? 'stroke' : ''} uppercase text-center`}
+          flex ? "flex justify-between" : ""
+        } ${stroke ? "stroke" : ""} uppercase text-center`}
         style={{
           fontFamily,
           fontSize: fontSize,
           lineHeight,
           transform: `scale(1, ${scaleY})`,
-          transformOrigin: 'center top',
+          transformOrigin: "center top",
           margin: 0,
           fontWeight: 100,
-          color: stroke ? undefined : textColor
+          color: stroke ? undefined : textColor,
         }}
       >
         {chars.map((char, i) => (

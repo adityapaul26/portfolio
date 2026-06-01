@@ -46,28 +46,43 @@ export default function SkillMarquee() {
               className="h-6 w-6 grayscale group-hover:grayscale-0 transition-all duration-500 opacity-70 group-hover:opacity-100"
             />
             <span className="text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-zinc-500 group-hover:text-purple-400 transition-colors">
-              {skill === "nodedotjs" ? "Node.js" : skill === "nextdotjs" ? "Next.js" : skill}
+              {skill === "nodedotjs"
+                ? "Node.js"
+                : skill === "nextdotjs"
+                  ? "Next.js"
+                  : skill}
             </span>
           </div>
         ))}
       </Marquee>
-      
-      <Marquee reverse pauseOnHover className="[--duration:45s] [--gap:2rem] mt-2">
-        {skills.slice().reverse().map((skill) => (
-          <div
-            key={skill}
-            className="flex items-center gap-3 px-2 py-1 transition-all duration-300 cursor-default group"
-          >
-            <img
-              src={`https://skillicons.dev/icons?i=${skill}`}
-              alt={skill}
-              className="h-6 w-6 grayscale group-hover:grayscale-0 transition-all duration-500 opacity-70 group-hover:opacity-100"
-            />
-            <span className="text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-zinc-500 group-hover:text-purple-400 transition-colors">
-              {skill === "nodedotjs" ? "Node.js" : skill === "nextdotjs" ? "Next.js" : skill}
-            </span>
-          </div>
-        ))}
+
+      <Marquee
+        reverse
+        pauseOnHover
+        className="[--duration:45s] [--gap:2rem] mt-2"
+      >
+        {skills
+          .slice()
+          .reverse()
+          .map((skill) => (
+            <div
+              key={skill}
+              className="flex items-center gap-3 px-2 py-1 transition-all duration-300 cursor-default group"
+            >
+              <img
+                src={`https://skillicons.dev/icons?i=${skill}`}
+                alt={skill}
+                className="h-6 w-6 grayscale group-hover:grayscale-0 transition-all duration-500 opacity-70 group-hover:opacity-100"
+              />
+              <span className="text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-zinc-500 group-hover:text-purple-400 transition-colors">
+                {skill === "nodedotjs"
+                  ? "Node.js"
+                  : skill === "nextdotjs"
+                    ? "Next.js"
+                    : skill}
+              </span>
+            </div>
+          ))}
       </Marquee>
 
       {/* Modern gradient masks */}

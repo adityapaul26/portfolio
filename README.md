@@ -20,16 +20,16 @@ A personal portfolio website that showcases my work, skills, and contact informa
 
 ## 🛠️ Tech Stack
 
-| Technology | Reason |
-|------------|--------|
-| **Next.js 16** | Server‑side rendering, fast routing, and the new Turbopack bundler for quick builds. |
-| **React 19** | Modern component model, concurrent features, and hooks. |
-| **Tailwind CSS 4** | Utility‑first styling with JIT compilation and `@theme` for custom CSS variables. |
-| **TypeScript** | Type safety across the codebase, better IDE experience. |
-| **GSAP** | High‑performance animations and timelines. |
-| **cobe** | Simple, performant 3‑D globe visualization. |
-| **motion** | Reactive motion values for smooth interactions. |
-| **skillicons.dev** | Quick access to a wide variety of skill icons. |
+| Technology         | Reason                                                                               |
+| ------------------ | ------------------------------------------------------------------------------------ |
+| **Next.js 16**     | Server‑side rendering, fast routing, and the new Turbopack bundler for quick builds. |
+| **React 19**       | Modern component model, concurrent features, and hooks.                              |
+| **Tailwind CSS 4** | Utility‑first styling with JIT compilation and `@theme` for custom CSS variables.    |
+| **TypeScript**     | Type safety across the codebase, better IDE experience.                              |
+| **GSAP**           | High‑performance animations and timelines.                                           |
+| **cobe**           | Simple, performant 3‑D globe visualization.                                          |
+| **motion**         | Reactive motion values for smooth interactions.                                      |
+| **skillicons.dev** | Quick access to a wide variety of skill icons.                                       |
 
 ---
 
@@ -85,7 +85,7 @@ The app is fully compatible with **Vercel**, **Netlify**, or any platform that s
 
 ### Other Platforms
 
-- **Netlify:** Use the *Next.js* build settings and set the build command to `pnpm build` and the publish directory to `.next`.
+- **Netlify:** Use the _Next.js_ build settings and set the build command to `pnpm build` and the publish directory to `.next`.
 - **Docker:** A `Dockerfile` can be added to containerise the app if you prefer self‑hosted deployments.
 
 ---
