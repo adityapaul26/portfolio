@@ -1,8 +1,14 @@
 "use client";
 
 import React from "react";
+import { toast } from "sonner";
 
 const Contact = () => {
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    toast.success("TRANSMISSION_RECEIVED: Message sent successfully.");
+  };
+
   return (
     <section
       id="contact"
@@ -19,7 +25,10 @@ const Contact = () => {
       <div className="w-full max-w-7xl flex flex-col md:flex-row items-center justify-center gap-12">
         {/* Left Column: Systems Control Panel */}
         <div className="w-full md:w-1/2 flex flex-col gap-6">
-          <div className="border border-neutral-900 bg-zinc-950/50 p-6 md:p-8 flex flex-col gap-6 relative overflow-hidden group">
+          <form
+            onSubmit={handleSubmit}
+            className="border border-neutral-900 bg-zinc-950/50 p-6 md:p-8 flex flex-col gap-6 relative overflow-hidden group"
+          >
             <div className="flex flex-col gap-4">
               <div className="flex flex-col gap-2">
                 <label className="text-[10px] uppercase tracking-[0.2em] text-zinc-600">
@@ -27,6 +36,7 @@ const Contact = () => {
                 </label>
                 <input
                   type="text"
+                  required
                   placeholder="USER_NAME"
                   className="bg-transparent border-b border-neutral-900 focus:border-zinc-700 outline-none py-2 text-sm transition-colors placeholder:text-zinc-800"
                 />
@@ -38,6 +48,7 @@ const Contact = () => {
                 </label>
                 <input
                   type="email"
+                  required
                   placeholder="SIGNAL_ADDRESS"
                   className="bg-transparent border-b border-neutral-900 focus:border-zinc-700 outline-none py-2 text-sm transition-colors placeholder:text-zinc-800"
                 />
@@ -48,6 +59,7 @@ const Contact = () => {
                   message:$
                 </label>
                 <textarea
+                  required
                   placeholder="TRANSMISSION_BODY"
                   rows={4}
                   className="bg-transparent border-b border-neutral-900 focus:border-zinc-700 outline-none py-2 text-sm transition-colors resize-none placeholder:text-zinc-800"
@@ -55,10 +67,13 @@ const Contact = () => {
               </div>
             </div>
 
-            <button className="self-start mt-4 px-6 py-2 border border-zinc-800 hover:bg-zinc-900 hover:text-zinc-100 transition-all text-xs tracking-[0.3em] uppercase active:scale-95">
+            <button
+              type="submit"
+              className="self-start mt-4 px-6 py-2 border border-zinc-800 hover:bg-zinc-900 hover:text-zinc-100 transition-all text-xs tracking-[0.3em] uppercase active:scale-95"
+            >
               sys_call --transmit
             </button>
-          </div>
+          </form>
         </div>
 
         {/* Right Column: Outbound Connection Protocols */}

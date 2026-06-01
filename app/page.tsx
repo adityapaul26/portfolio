@@ -57,7 +57,7 @@ export default function Home() {
           </section>
 
           {/* Projects Section */}
-          <section className="py-16 md:py-24 relative z-10">
+          <section id="projects" className="py-16 md:py-24 relative z-10">
           <div className="max-w-7xl mx-auto px-6 md:px-16">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 tracking-tighter uppercase font-mono text-center">
               Projects
@@ -68,7 +68,7 @@ export default function Home() {
         </section>
 
         {/* Experience Section */}
-        <section className="py-16 md:py-24 relative z-10">
+        <section id="experience" className="py-16 md:py-24 relative z-10">
           <div className="max-w-7xl mx-auto px-6 md:px-16">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 tracking-tighter uppercase font-mono text-center">
               Experience

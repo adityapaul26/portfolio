@@ -315,12 +315,39 @@ const InterstellarFluid: React.FC<InterstellarProps> = ({
 
 export default function InterstellarFluidHero() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("about");
+
   const navLinks = [
     { name: "About", href: "#about" },
     { name: "Projects", href: "#projects" },
     { name: "Experience", href: "#experience" },
     { name: "Contact", href: "#contact" },
   ];
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = ["about", "projects", "experience", "contact"];
+      const scrollPosition = window.scrollY + 100;
+
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const offsetTop = element.offsetTop;
+          const offsetHeight = element.offsetHeight;
+
+          if (
+            scrollPosition >= offsetTop &&
+            scrollPosition < offsetTop + offsetHeight
+          ) {
+            setActiveSection(section);
+          }
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <main className="relative w-full h-screen overflow-hidden bg-black font-sans selection:bg-purple-500 selection:text-white">
@@ -367,18 +394,31 @@ export default function InterstellarFluidHero() {
               <a
                 key={link.name}
                 href={link.href}
-                className="text-[11px] font-mono tracking-[0.2em] uppercase text-gray-300 hover:text-purple-400 transition-all duration-300 relative group font-bold"
+                className={`text-[11px] font-mono tracking-[0.2em] uppercase transition-all duration-300 relative group font-bold ${
+                  activeSection === link.href.substring(1)
+                    ? "text-purple-400"
+                    : "text-gray-300 hover:text-purple-400"
+                }`}
               >
                 {link.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-px bg-purple-500 transition-all duration-300 group-hover:w-full"></span>
+                <span
+                  className={`absolute -bottom-1 left-0 h-px bg-purple-500 transition-all duration-300 ${
+                    activeSection === link.href.substring(1)
+                      ? "w-full"
+                      : "w-0 group-hover:w-full"
+                  }`}
+                ></span>
               </a>
             ))}
           </nav>
 
           <div className="flex items-center gap-4">
-            <button className="hidden sm:block border border-purple-500/30 hover:border-purple-500 hover:bg-purple-500/10 px-5 py-1.5 text-[9px] font-mono tracking-widest uppercase transition-all duration-300 backdrop-blur-md rounded-sm">
+            <a
+              href="#"
+              className="hidden sm:block border border-purple-500/30 hover:border-purple-500 hover:bg-purple-500/10 px-5 py-1.5 text-[9px] font-mono tracking-widest uppercase transition-all duration-300 backdrop-blur-md rounded-sm"
+            >
               [ Resume ]
-            </button>
+            </a>
             <button
               className="md:hidden text-white p-2"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -408,14 +448,21 @@ export default function InterstellarFluidHero() {
                   key={link.name}
                   href={link.href}
                   onClick={() => setIsMenuOpen(false)}
-                  className="text-2xl font-mono tracking-[0.3em] uppercase text-white hover:text-purple-400 transition-all duration-300 font-bold"
+                  className={`text-2xl font-mono tracking-[0.3em] uppercase transition-all duration-300 font-bold ${
+                    activeSection === link.href.substring(1)
+                      ? "text-purple-400"
+                      : "text-white hover:text-purple-400"
+                  }`}
                 >
                   {link.name}
                 </a>
               ))}
-              <button className="mt-4 border border-purple-500 px-8 py-3 text-xs font-mono tracking-widest uppercase transition-all duration-300 rounded-sm">
+              <a
+                href="#"
+                className="mt-4 border border-purple-500 px-8 py-3 text-xs font-mono tracking-widest uppercase transition-all duration-300 rounded-sm"
+              >
                 [ Resume ]
-              </button>
+              </a>
             </nav>
           </div>
         )}
@@ -452,12 +499,18 @@ export default function InterstellarFluidHero() {
             </p>
 
             <div className="mt-8 md:mt-12 pointer-events-auto flex flex-wrap justify-center lg:justify-start gap-4 md:gap-6">
-              <button className="bg-white text-black px-6 md:px-8 py-3 md:py-4 font-bold text-[10px] md:text-xs uppercase tracking-widest hover:bg-purple-300 transition-colors">
+              <a
+                href="#projects"
+                className="bg-white text-black px-6 md:px-8 py-3 md:py-4 font-bold text-[10px] md:text-xs uppercase tracking-widest hover:bg-purple-300 transition-colors inline-block"
+              >
                 View Projects
-              </button>
-              <button className="text-white border-b border-white/30 pb-1 text-[10px] md:text-xs uppercase tracking-widest hover:border-white transition-colors">
+              </a>
+              <a
+                href="#contact"
+                className="text-white border-b border-white/30 pb-1 text-[10px] md:text-xs uppercase tracking-widest hover:border-white transition-colors inline-block"
+              >
                 Get in Touch
-              </button>
+              </a>
             </div>
           </div>
 
