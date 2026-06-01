@@ -343,7 +343,7 @@ export function Terminal({
           setCurrentText(currentCommand.slice(0, charIdx + 1));
           setCharIdx((c) => c + 1);
         },
-        typingSpeed + Math.random() * 30,
+        typingSpeed,
       );
       return () => clearTimeout(t);
     } else {
@@ -351,7 +351,7 @@ export function Terminal({
       const t = setTimeout(() => {
         up("Enter");
         setPhase("executing");
-      }, 80);
+      }, 0);
       return () => clearTimeout(t);
     }
   }, [phase, charIdx, currentCommand, typingSpeed, down, up]);
@@ -383,7 +383,7 @@ export function Terminal({
           { type: "output", content: currentOutputs[outputIdx] },
         ]);
         setOutputIdx((i) => i + 1);
-      }, 150);
+      }, 0);
       return () => clearTimeout(t);
     } else if (outputIdx >= currentOutputs.length) {
       const t = setTimeout(() => {
@@ -393,7 +393,7 @@ export function Terminal({
         } else {
           setPhase("pausing");
         }
-      }, 300);
+      }, 0);
       return () => clearTimeout(t);
     }
   }, [phase, outputIdx, currentOutputs, isLastCommand, onDone]);
@@ -405,9 +405,9 @@ export function Terminal({
       setOutputIdx(-1);
       setCommandIdx((c) => c + 1);
       setPhase("typing");
-    }, delayBetweenCommands);
+    }, 0);
     return () => clearTimeout(t);
-  }, [phase, delayBetweenCommands]);
+  }, [phase, 0]);
 
   useEffect(() => {
     const interval = setInterval(() => setCursorVisible((v) => !v), 530);

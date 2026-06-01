@@ -19,10 +19,11 @@ export default function TerminalLoader({ onDone }: { onDone: () => void }) {
           1: ["added 42 skills, 12 projects in 1.2s"],
           2: ["✔ DONE. Portfolio is live."],
         }}
-        typingSpeed={15}
-        delayBetweenCommands={400}
+        typingSpeed={20}
+        delayBetweenCommands={500}
+        initialDelay={200}
         onDone={() => {
-          setTimeout(onDone, 600); // Small delay before transition
+          setTimeout(onDone, 500); // Small delay before transition
         }}
       />
     </div>
