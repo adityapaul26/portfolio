@@ -33,12 +33,12 @@ const skills = [
 
 export default function SkillMarquee() {
   return (
-    <div className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden py-4 bg-black/20">
-      <Marquee pauseOnHover className="[--duration:40s]">
+    <div className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden py-4">
+      <Marquee pauseOnHover className="[--duration:40s] [--gap:2rem]">
         {skills.map((skill) => (
           <div
             key={skill}
-            className="flex items-center gap-3 px-5 py-2.5 bg-zinc-900/50 border border-white/5 rounded-lg hover:border-purple-500/30 hover:bg-purple-500/5 transition-all duration-300 cursor-default group"
+            className="flex items-center gap-3 px-2 py-1 transition-all duration-300 cursor-default group"
           >
             <img
               src={`https://skillicons.dev/icons?i=${skill}`}
@@ -52,11 +52,11 @@ export default function SkillMarquee() {
         ))}
       </Marquee>
       
-      <Marquee reverse pauseOnHover className="[--duration:45s] mt-2">
+      <Marquee reverse pauseOnHover className="[--duration:45s] [--gap:2rem] mt-2">
         {skills.slice().reverse().map((skill) => (
           <div
             key={skill}
-            className="flex items-center gap-3 px-5 py-2.5 bg-zinc-900/50 border border-white/5 rounded-lg hover:border-purple-500/30 hover:bg-purple-500/5 transition-all duration-300 cursor-default group"
+            className="flex items-center gap-3 px-2 py-1 transition-all duration-300 cursor-default group"
           >
             <img
               src={`https://skillicons.dev/icons?i=${skill}`}
