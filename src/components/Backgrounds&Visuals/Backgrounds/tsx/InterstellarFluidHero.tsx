@@ -29,7 +29,6 @@ const InterstellarFluid: React.FC<InterstellarProps> = ({
   baseColor = [0.05, 0.05, 0.2], // Deep Space Blue
   glowColor = [0.8, 0.4, 1.0], // Nebula Violet
   dissipation = 0.97,
-  velocityDissipation = 0.98,
   interactive = true,
   ...props
 }) => {
@@ -56,8 +55,10 @@ const InterstellarFluid: React.FC<InterstellarProps> = ({
       const ext = gl.getExtension("EXT_color_buffer_float");
       gl.getExtension("OES_texture_float_linear");
       if (ext) {
-        fboType = gl.HALF_FLOAT;
+        /* eslint-disable @typescript-eslint/no-explicit-any */
+        fboType = (gl as any).HALF_FLOAT || 0x8D61;
         fboInternalFormat = (gl as any).RGBA16F || gl.RGBA;
+        /* eslint-enable @typescript-eslint/no-explicit-any */
       }
     } else {
       // WebGL1: Use OES_texture_half_float if available
