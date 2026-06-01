@@ -2,6 +2,7 @@
 
 import React from "react";
 import { toast } from "sonner";
+import { HyperText } from "@/components/ui/hyper-text";
 
 const Contact = () => {
   const handleSubmit = (e: React.FormEvent) => {
@@ -16,9 +17,12 @@ const Contact = () => {
     >
       {/* Section Heading */}
       <div className="text-center z-10 mb-4">
-        <h2 className="text-4xl md:text-5xl font-black text-white mb-4 tracking-tighter uppercase italic">
+        <HyperText
+          as="h2"
+          className="text-4xl md:text-5xl font-black text-white mb-4 tracking-tighter uppercase italic"
+        >
           Contact_Node
-        </h2>
+        </HyperText>
         <div className="h-1.5 w-24 bg-purple-500 mx-auto"></div>
       </div>
 
