@@ -12,14 +12,14 @@ const Contact = () => {
   return (
     <section
       id="contact"
-      className="w-full h-screen snap-start bg-black flex flex-col items-center justify-center gap-12 px-8 md:px-24 relative font-mono text-zinc-400"
+      className="w-full h-screen snap-start bg-black flex flex-col items-center justify-center gap-12 px-8 md:px-24 relative font-mono text-zinc-300"
     >
       {/* Section Heading */}
       <div className="text-center z-10 mb-4">
-        <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 tracking-tighter uppercase">
+        <h2 className="text-4xl md:text-5xl font-black text-white mb-4 tracking-tighter uppercase italic">
           Contact_Node
         </h2>
-        <div className="h-1 w-20 bg-purple-500 mx-auto"></div>
+        <div className="h-1.5 w-24 bg-purple-500 mx-auto"></div>
       </div>
 
       <div className="w-full max-w-7xl flex flex-col md:flex-row items-center justify-center gap-12">
@@ -27,49 +27,49 @@ const Contact = () => {
         <div className="w-full md:w-1/2 flex flex-col gap-6">
           <form
             onSubmit={handleSubmit}
-            className="border border-neutral-900 bg-zinc-950/50 p-6 md:p-8 flex flex-col gap-6 relative overflow-hidden group"
+            className="border border-zinc-800 bg-zinc-900/20 backdrop-blur-sm p-8 md:p-10 flex flex-col gap-8 relative overflow-hidden group shadow-[0_0_50px_-12px_rgba(168,85,247,0.2)]"
           >
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-6">
               <div className="flex flex-col gap-2">
-                <label className="text-[10px] uppercase tracking-[0.2em] text-zinc-600">
+                <label className="text-[11px] uppercase tracking-[0.3em] text-purple-400 font-bold">
                   origin:$
                 </label>
                 <input
                   type="text"
                   required
                   placeholder="USER_NAME"
-                  className="bg-transparent border-b border-neutral-900 focus:border-zinc-700 outline-none py-2 text-sm transition-colors placeholder:text-zinc-800"
+                  className="bg-transparent border-b border-zinc-800 focus:border-purple-500 outline-none py-3 text-base transition-all placeholder:text-zinc-700 text-white"
                 />
               </div>
 
               <div className="flex flex-col gap-2">
-                <label className="text-[10px] uppercase tracking-[0.2em] text-zinc-600">
+                <label className="text-[11px] uppercase tracking-[0.3em] text-purple-400 font-bold">
                   channel:$
                 </label>
                 <input
                   type="email"
                   required
                   placeholder="SIGNAL_ADDRESS"
-                  className="bg-transparent border-b border-neutral-900 focus:border-zinc-700 outline-none py-2 text-sm transition-colors placeholder:text-zinc-800"
+                  className="bg-transparent border-b border-zinc-800 focus:border-purple-500 outline-none py-3 text-base transition-all placeholder:text-zinc-700 text-white"
                 />
               </div>
 
               <div className="flex flex-col gap-2">
-                <label className="text-[10px] uppercase tracking-[0.2em] text-zinc-600">
+                <label className="text-[11px] uppercase tracking-[0.3em] text-purple-400 font-bold">
                   message:$
                 </label>
                 <textarea
                   required
                   placeholder="TRANSMISSION_BODY"
                   rows={4}
-                  className="bg-transparent border-b border-neutral-900 focus:border-zinc-700 outline-none py-2 text-sm transition-colors resize-none placeholder:text-zinc-800"
+                  className="bg-transparent border-b border-zinc-800 focus:border-purple-500 outline-none py-3 text-base transition-all resize-none placeholder:text-zinc-700 text-white"
                 />
               </div>
             </div>
 
             <button
               type="submit"
-              className="self-start mt-4 px-6 py-2 border border-zinc-800 hover:bg-zinc-900 hover:text-zinc-100 transition-all text-xs tracking-[0.3em] uppercase active:scale-95"
+              className="self-start mt-4 px-8 py-3 bg-white text-black hover:bg-purple-400 transition-all text-xs font-black tracking-[0.4em] uppercase active:scale-95"
             >
               sys_call --transmit
             </button>
@@ -81,44 +81,44 @@ const Contact = () => {
           <div className="flex flex-col gap-6">
             <div className="group">
               <div className="flex items-center gap-4 mb-2">
-                <span className="text-[10px] bg-zinc-900 px-2 py-0.5 text-zinc-500">ETH0</span>
-                <span className="text-[10px] text-zinc-600 tracking-widest">{"// GITHUB"}</span>
+                <span className="text-[10px] bg-purple-500/20 text-purple-400 px-2 py-0.5 border border-purple-500/30">ETH0</span>
+                <span className="text-[10px] text-zinc-500 tracking-widest font-bold">{"// GITHUB"}</span>
               </div>
               <a
                 href="https://github.com/adityapaul26"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm md:text-base border border-neutral-900 p-4 block hover:border-zinc-700 hover:bg-zinc-950 transition-all truncate"
+                className="text-base md:text-lg border border-zinc-800 p-5 block hover:border-purple-500 hover:bg-zinc-900/50 transition-all truncate text-white font-medium"
               >
-                https://github.com/adityapaul26
+                github.com/adityapaul26
               </a>
             </div>
 
             <div className="group">
               <div className="flex items-center gap-4 mb-2">
-                <span className="text-[10px] bg-zinc-900 px-2 py-0.5 text-zinc-500">ETH1</span>
-                <span className="text-[10px] text-zinc-600 tracking-widest">{"// LINKEDIN"}</span>
+                <span className="text-[10px] bg-purple-500/20 text-purple-400 px-2 py-0.5 border border-purple-500/30">ETH1</span>
+                <span className="text-[10px] text-zinc-500 tracking-widest font-bold">{"// LINKEDIN"}</span>
               </div>
               <a
-                href="https://linkedin.com/in/adityapaul26"
+                href="https://linkedin.com/in/aditya-paul-b8881a31b"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm md:text-base border border-neutral-900 p-4 block hover:border-zinc-700 hover:bg-zinc-950 transition-all truncate"
+                className="text-base md:text-lg border border-zinc-800 p-5 block hover:border-purple-500 hover:bg-zinc-900/50 transition-all truncate text-white font-medium"
               >
-                adityapaul26
+                aditya-paul-b8881a31b
               </a>
             </div>
 
             <div className="group">
               <div className="flex items-center gap-4 mb-2">
-                <span className="text-[10px] bg-zinc-900 px-2 py-0.5 text-zinc-500">WLAN0</span>
-                <span className="text-[10px] text-zinc-600 tracking-widest">{"// SECURE_MAIL"}</span>
+                <span className="text-[10px] bg-purple-500/20 text-purple-400 px-2 py-0.5 border border-purple-500/30">WLAN0</span>
+                <span className="text-[10px] text-zinc-500 tracking-widest font-bold">{"// SECURE_MAIL"}</span>
               </div>
               <a
-                href="mailto:adityapaul26@gmail.com"
-                className="text-sm md:text-base border border-neutral-900 p-4 block hover:border-zinc-700 hover:bg-zinc-950 transition-all truncate"
+                href="mailto:adityapaul2603@gmail.com"
+                className="text-base md:text-lg border border-zinc-800 p-5 block hover:border-purple-500 hover:bg-zinc-900/50 transition-all truncate text-white font-medium"
               >
-                adityapaul26@gmail.com
+                adityapaul2603@gmail.com
               </a>
             </div>
           </div>
@@ -126,11 +126,11 @@ const Contact = () => {
       </div>
 
       {/* Background/Corner Accents */}
-      <div className="absolute top-8 left-8 text-[8px] text-zinc-800 tracking-[0.5em] hidden md:block uppercase">
-        system_status: ready
+      <div className="absolute top-12 left-12 text-[10px] text-zinc-700 tracking-[0.5em] hidden md:block uppercase font-bold">
+        system_status: <span className="text-purple-500">online</span>
       </div>
-      <div className="absolute bottom-8 right-8 text-[8px] text-zinc-800 tracking-[0.5em] hidden md:block uppercase">
-        protocol: secure_handshake
+      <div className="absolute bottom-12 right-12 text-[10px] text-zinc-700 tracking-[0.5em] hidden md:block uppercase font-bold">
+        protocol: <span className="text-purple-500">secure_handshake</span>
       </div>
     </section>
   );
