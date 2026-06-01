@@ -81,37 +81,39 @@ const projects: Project[] = [
 
 export default function ProjectsSection() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-24 gap-x-8 w-full py-12">
+    <div className="flex flex-col items-center gap-y-32 w-full py-12">
       {projects.map((project, index) => (
         <div
           key={index}
-          className="flex flex-col items-center justify-center w-full group"
+          className="flex flex-col md:flex-row items-center justify-center w-full group gap-8 md:gap-16"
         >
-          <PinContainer
-            title={project.title}
-            href={project.href}
-            containerClassName="h-[24rem] w-full flex items-center justify-center"
-            className="w-[20rem] h-[12rem]"
-            image={project.image}
-          >
-            <div className="w-[20rem] h-[12rem]" />
-          </PinContainer>
+          <div className="flex-shrink-0">
+            <PinContainer
+              title={project.title}
+              href={project.href}
+              containerClassName="h-[24rem] w-[24rem] flex items-center justify-center"
+              className="w-[20rem] h-[12rem]"
+              image={project.image}
+            >
+              <div className="w-[20rem] h-[12rem]" />
+            </PinContainer>
+          </div>
 
-          <div className="mt-12 text-center max-w-xs px-4">
-            <h3 className="font-bold text-xl text-slate-100 mb-1 group-hover:text-purple-400 transition-colors">
+          <div className="text-center md:text-left max-w-md px-4">
+            <h3 className="font-bold text-2xl text-slate-100 mb-1 group-hover:text-purple-400 transition-colors">
               {project.displayTitle}
             </h3>
-            <p className="text-xs text-purple-500/80 font-mono mb-2 uppercase tracking-widest">
+            <p className="text-sm text-purple-500/80 font-mono mb-3 uppercase tracking-widest">
               {project.tagline}
             </p>
-            <p className="text-sm text-slate-400 line-clamp-2 mb-4 h-10">
+            <p className="text-base text-slate-400 mb-6 leading-relaxed">
               {project.description}
             </p>
-            <div className="flex flex-wrap justify-center gap-1.5">
+            <div className="flex flex-wrap justify-center md:justify-start gap-2">
               {project.tech?.map((t, i) => (
                 <span
                   key={i}
-                  className="text-[10px] font-mono bg-white/5 border border-white/10 px-2 py-0.5 rounded text-slate-300"
+                  className="text-xs font-mono bg-white/5 border border-white/10 px-3 py-1 rounded-full text-slate-300"
                 >
                   {t}
                 </span>
