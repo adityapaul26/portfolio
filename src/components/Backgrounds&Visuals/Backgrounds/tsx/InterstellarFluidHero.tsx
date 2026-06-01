@@ -47,7 +47,7 @@ const InterstellarFluid: React.FC<InterstellarProps> = ({
 
     // Detect WebGL version and Floating Point Support
     const isWebGL2 = renderer.isWebgl2;
-    let fboType = gl.UNSIGNED_BYTE;
+    let fboType: number = gl.UNSIGNED_BYTE;
     let fboInternalFormat = gl.RGBA;
 
     if (isWebGL2) {
