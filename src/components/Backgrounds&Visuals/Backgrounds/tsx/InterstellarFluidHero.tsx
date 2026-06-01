@@ -41,14 +41,33 @@ const InterstellarFluid: React.FC<InterstellarProps> = ({
 
     // 1. Setup Renderer
     const renderer = new Renderer({
-      alpha: false, // Opaque for space background
+      alpha: true, // Allow transparency for better fallback
       dpr: Math.min(window.devicePixelRatio, 2),
     });
     const gl = renderer.gl;
 
-    // Enable Floating Point Textures (Critical for HDR colors)
-    const ext = gl.getExtension("OES_texture_float");
-    const extLinear = gl.getExtension("OES_texture_float_linear");
+    // Detect WebGL version and Floating Point Support
+    const isWebGL2 = renderer.isWebgl2;
+    let fboType = gl.UNSIGNED_BYTE;
+    let fboInternalFormat = gl.RGBA;
+
+    if (isWebGL2) {
+      // WebGL2: Use HALF_FLOAT and RGBA16F if possible
+      const ext = gl.getExtension("EXT_color_buffer_float");
+      gl.getExtension("OES_texture_float_linear");
+      if (ext) {
+        fboType = gl.HALF_FLOAT;
+        fboInternalFormat = (gl as any).RGBA16F || gl.RGBA;
+      }
+    } else {
+      // WebGL1: Use OES_texture_half_float if available
+      const halfFloat = gl.getExtension("OES_texture_half_float");
+      gl.getExtension("OES_texture_half_float_linear");
+      if (halfFloat) {
+        fboType = halfFloat.HALF_FLOAT_OES;
+        fboInternalFormat = gl.RGBA;
+      }
+    }
 
     // --------------------------------------------------------
     // SHADER: SIMULATION (Physics)
@@ -145,8 +164,8 @@ const InterstellarFluid: React.FC<InterstellarProps> = ({
                 // 4. Decay (Vacuum of space)
                 finalColor *= uDissipation;
                 
-                // Ensure deep black background (minimum value)
-                // finalColor = max(finalColor, uBaseColor * 0.1); 
+                // Safety clamp to prevent NaN/Infinity propagation
+                finalColor = clamp(finalColor, 0.0, 10.0);
 
                 gl_FragColor = vec4(finalColor, 1.0);
             }
@@ -171,8 +190,8 @@ const InterstellarFluid: React.FC<InterstellarProps> = ({
                 // Add the base tint (Ambient starlight)
                 c += uBaseColor * 0.1;
                 
-                // Gamma correction for contrast
-                c = pow(c, vec3(1.4)); 
+                // Gamma correction for contrast (ensure c is non-negative for pow)
+                c = pow(max(c, 0.0), vec3(1.4)); 
                 
                 // Dithering (prevent banding in the darkness)
                 float noise = fract(sin(dot(vUv, vec2(12.9898, 78.233))) * 43758.5453);
@@ -214,33 +233,47 @@ const InterstellarFluid: React.FC<InterstellarProps> = ({
     const displayMesh = new Mesh(gl, { geometry, program: displayProgram });
 
     // FBOs (Double Buffering)
-    // We use half-float textures for HDR color support
+    // We use half-float textures for HDR color support if available
     const fboArgs = {
       width: window.innerWidth >> 1,
       height: window.innerHeight >> 1,
-      type: (gl as any).HALF_FLOAT || (gl as any).FLOAT || 36193,
-      internalFormat: (gl as any).RGBA16F || gl.RGBA,
+      type: fboType,
+      internalFormat: fboInternalFormat,
       minFilter: gl.LINEAR,
       magFilter: gl.LINEAR,
     };
     let fboRead = new RenderTarget(gl, fboArgs);
     let fboWrite = new RenderTarget(gl, fboArgs);
 
+    // Initial clear of FBOs to prevent garbage on startup
+    const clear = () => {
+      gl.bindFramebuffer(gl.FRAMEBUFFER, fboRead.framebuffer);
+      gl.clearColor(0, 0, 0, 1);
+      gl.clear(gl.COLOR_BUFFER_BIT);
+      gl.bindFramebuffer(gl.FRAMEBUFFER, fboWrite.framebuffer);
+      gl.clear(gl.COLOR_BUFFER_BIT);
+      gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+    };
+    clear();
+
     // Input Handling
-    const mouse = new Vec2(0, 0);
-    const targetMouse = new Vec2(0, 0);
+    const mouse = new Vec2(0.5, 0.5); // Center start
+    const targetMouse = new Vec2(0.5, 0.5);
     let isMoving = 0;
 
     function resize() {
       const w = container.offsetWidth;
       const h = container.offsetHeight;
+      if (!w || !h) return;
+      
       renderer.setSize(w, h);
 
       // Resize FBOs
-      const fboW = w >> 1;
-      const fboH = h >> 1;
+      const fboW = Math.floor(w >> 1);
+      const fboH = Math.floor(h >> 1);
       fboRead.setSize(fboW, fboH);
       fboWrite.setSize(fboW, fboH);
+      clear(); // Re-clear on resize
 
       simProgram.uniforms.uResolution.value.set(w, h);
       simProgram.uniforms.uAspect.value = w / h;
@@ -249,32 +282,34 @@ const InterstellarFluid: React.FC<InterstellarProps> = ({
     resize();
 
     function updateMouse(x: number, y: number) {
-      targetMouse.set(x / gl.canvas.width, 1.0 - y / gl.canvas.height);
+      const rect = container.getBoundingClientRect();
+      targetMouse.set(
+        (x - rect.left) / rect.width,
+        1.0 - (y - rect.top) / rect.height
+      );
       isMoving = 1.0;
     }
 
+    const onMouseMove = (e: MouseEvent) => updateMouse(e.clientX, e.clientY);
+    const onTouchMove = (e: TouchEvent) => updateMouse(e.touches[0].clientX, e.touches[0].clientY);
+
     if (interactive) {
-      window.addEventListener("mousemove", (e) =>
-        updateMouse(e.clientX, e.clientY),
-      );
-      window.addEventListener("touchmove", (e) =>
-        updateMouse(e.touches[0].clientX, e.touches[0].clientY),
-      );
+      window.addEventListener("mousemove", onMouseMove);
+      window.addEventListener("touchmove", onTouchMove);
     }
 
     let animationId: number;
-    let stopTimer: NodeJS.Timeout;
 
     function update(t: number) {
       animationId = requestAnimationFrame(update);
       const time = t * 0.001;
 
       // Smooth Mouse
-      mouse.lerp(targetMouse, 0.15);
+      mouse.lerp(targetMouse, 0.1);
 
       // Mouse "Stop" logic (decay activity when stopped)
-      if (Math.abs(mouse.x - targetMouse.x) < 0.001) {
-        isMoving *= 0.9; // Fast decay
+      if (mouse.distance(targetMouse) < 0.001) {
+        isMoving *= 0.95; 
       }
 
       // Update Uniforms
@@ -302,7 +337,12 @@ const InterstellarFluid: React.FC<InterstellarProps> = ({
     return () => {
       cancelAnimationFrame(animationId);
       window.removeEventListener("resize", resize);
+      window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("touchmove", onTouchMove);
       gl.getExtension("WEBGL_lose_context")?.loseContext();
+      if (gl.canvas.parentElement) {
+        gl.canvas.parentElement.removeChild(gl.canvas);
+      }
     };
   }, [baseColor, glowColor, dissipation, interactive]);
 
