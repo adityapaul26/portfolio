@@ -5,6 +5,7 @@ import SkillMarquee from "@/components/ui/skill-marquee";
 import { ScrollProgress } from "@/components/ui/scroll-progress";
 import ClickSpark from "@/components/ui/click-spark";
 import Experience from "@/components/ui/experience";
+import Contact from "@/src/components/sections/Contact";
 
 export default function Home() {
   return (
@@ -78,14 +79,7 @@ export default function Home() {
         </section>
 
         {/* Contact Section */}
-        <section id="contact" className="py-16 md:py-24 relative z-10">
-          <div className="max-w-7xl mx-auto px-6 md:px-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 tracking-tighter uppercase font-mono text-center">
-              Contact
-            </h2>
-            <div className="h-1 w-20 bg-purple-500 mx-auto mb-16"></div>
-          </div>
-        </section>
+        <Contact />
 
         {/* Footer */}
         <footer className="py-12 border-t border-zinc-800 relative z-10">
@@ -99,4 +93,3 @@ export default function Home() {
     </ClickSpark>
   );
 }
-
