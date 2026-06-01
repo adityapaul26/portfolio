@@ -46,7 +46,7 @@ export default function Home() {
           </section>
 
           {/* Skills Marquee Section */}
-          <section className="py-12 relative z-10 overflow-hidden">
+          <section id="tech" className="py-12 relative z-10 overflow-hidden">
           <div className="max-w-7xl mx-auto px-6 md:px-16 mb-8">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 tracking-tighter uppercase font-mono text-center">
               Tech Stack

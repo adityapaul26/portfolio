@@ -319,6 +319,7 @@ export default function InterstellarFluidHero() {
 
   const navLinks = [
     { name: "About", href: "#about" },
+    { name: "Tech", href: "#tech" },
     { name: "Projects", href: "#projects" },
     { name: "Experience", href: "#experience" },
     { name: "Contact", href: "#contact" },
@@ -326,7 +327,7 @@ export default function InterstellarFluidHero() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ["about", "projects", "experience", "contact"];
+      const sections = ["about", "tech", "projects", "experience", "contact"];
       const scrollPosition = window.scrollY + 100;
 
       for (const section of sections) {
@@ -348,6 +349,17 @@ export default function InterstellarFluidHero() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    e.preventDefault();
+    const element = document.getElementById(id.replace("#", ""));
+    if (element) {
+      element.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  };
 
   return (
     <main className="relative w-full h-screen overflow-hidden bg-black font-sans selection:bg-purple-500 selection:text-white">
@@ -394,6 +406,7 @@ export default function InterstellarFluidHero() {
               <a
                 key={link.name}
                 href={link.href}
+                onClick={(e) => scrollToSection(e, link.href)}
                 className={`text-[11px] font-mono tracking-[0.2em] uppercase transition-all duration-300 relative group font-bold ${
                   activeSection === link.href.substring(1)
                     ? "text-purple-400"
@@ -447,7 +460,10 @@ export default function InterstellarFluidHero() {
                 <a
                   key={link.name}
                   href={link.href}
-                  onClick={() => setIsMenuOpen(false)}
+                  onClick={(e) => {
+                    setIsMenuOpen(false);
+                    scrollToSection(e, link.href);
+                  }}
                   className={`text-2xl font-mono tracking-[0.3em] uppercase transition-all duration-300 font-bold ${
                     activeSection === link.href.substring(1)
                       ? "text-purple-400"
@@ -501,12 +517,14 @@ export default function InterstellarFluidHero() {
             <div className="mt-8 md:mt-12 pointer-events-auto flex flex-wrap justify-center lg:justify-start gap-4 md:gap-6">
               <a
                 href="#projects"
+                onClick={(e) => scrollToSection(e, "#projects")}
                 className="bg-white text-black px-6 md:px-8 py-3 md:py-4 font-bold text-[10px] md:text-xs uppercase tracking-widest hover:bg-purple-300 transition-colors inline-block"
               >
                 View Projects
               </a>
               <a
                 href="#contact"
+                onClick={(e) => scrollToSection(e, "#contact")}
                 className="text-white border-b border-white/30 pb-1 text-[10px] md:text-xs uppercase tracking-widest hover:border-white transition-colors inline-block"
               >
                 Get in Touch
