@@ -12,6 +12,8 @@ export const metadata: Metadata = {
   description: "A showcase of my work and skills.",
 };
 
+import { Toaster } from "@/components/ui/sonner";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -22,7 +24,10 @@ export default function RootLayout({
       lang="en"
       className={`${jetbrainsMono.variable} ${jetbrainsMono.className} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        {children}
+        <Toaster />
+      </body>
     </html>
   );
 }
