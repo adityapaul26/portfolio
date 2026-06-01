@@ -5,7 +5,6 @@ import SkillMarquee from "@/components/ui/skill-marquee";
 import { ScrollProgress } from "@/components/ui/scroll-progress";
 import ClickSpark from "@/components/ui/click-spark";
 import Experience from "@/components/ui/experience";
-import Contact from "@/components/ui/contact";
 
 export default function Home() {
   return (
@@ -85,7 +84,6 @@ export default function Home() {
               Contact
             </h2>
             <div className="h-1 w-20 bg-purple-500 mx-auto mb-16"></div>
-            <Contact />
           </div>
         </section>
 
