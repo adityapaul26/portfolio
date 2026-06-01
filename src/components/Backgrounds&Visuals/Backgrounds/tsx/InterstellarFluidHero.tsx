@@ -248,12 +248,14 @@ const InterstellarFluid: React.FC<InterstellarProps> = ({
 
     // Initial clear of FBOs to prevent garbage on startup
     const clear = () => {
-      gl.bindFramebuffer(gl.FRAMEBUFFER, fboRead.framebuffer);
+      /* eslint-disable @typescript-eslint/no-explicit-any */
+      gl.bindFramebuffer(gl.FRAMEBUFFER, (fboRead as any).buffer || (fboRead as any).framebuffer);
       gl.clearColor(0, 0, 0, 1);
       gl.clear(gl.COLOR_BUFFER_BIT);
-      gl.bindFramebuffer(gl.FRAMEBUFFER, fboWrite.framebuffer);
+      gl.bindFramebuffer(gl.FRAMEBUFFER, (fboWrite as any).buffer || (fboWrite as any).framebuffer);
       gl.clear(gl.COLOR_BUFFER_BIT);
       gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+      /* eslint-enable @typescript-eslint/no-explicit-any */
     };
     clear();
 
