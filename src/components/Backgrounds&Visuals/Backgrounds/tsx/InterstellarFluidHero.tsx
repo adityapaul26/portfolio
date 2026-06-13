@@ -470,7 +470,9 @@ export default function InterstellarFluidHero() {
 
           <div className="flex items-center gap-4">
             <a
-              href="#"
+              href="https://drive.google.com/file/d/1XZNEX9oAeGKmqB1LrRPLcmRt0RIlnbwR/view?usp=drive_link"
+              target="_blank"
+              rel="noopener noreferrer"
               className="hidden sm:block border border-purple-500/30 hover:border-purple-500 hover:bg-purple-500/10 px-5 py-1.5 text-[9px] font-mono tracking-widest uppercase transition-all duration-300 backdrop-blur-md rounded-sm"
             >
               [ Resume ]
@@ -517,7 +519,9 @@ export default function InterstellarFluidHero() {
                 </a>
               ))}
               <a
-                href="#"
+                href="https://drive.google.com/file/d/1XZNEX9oAeGKmqB1LrRPLcmRt0RIlnbwR/view?usp=drive_link"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="mt-4 border border-purple-500 px-8 py-3 text-xs font-mono tracking-widest uppercase transition-all duration-300 rounded-sm"
               >
                 [ Resume ]
